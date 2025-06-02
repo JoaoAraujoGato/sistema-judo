@@ -23,3 +23,5 @@ Após fazer as alterações desejadas, vamos rodar o seguinte comando para aplic
 ~~~
 npx knex migrate:latest
 ~~~
+
+Documentação da biblioteca [Joi](https://joi.dev/api/?v=17.13.3#introduction)
