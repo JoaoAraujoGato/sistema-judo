@@ -16,12 +16,20 @@ module.exports = {
             data_cadastro: Joi.date().required(),
             foto_url: Joi.string().optional(),
         }),
+        [Segments.HEADERS]: Joi.object().keys({
+            authorization: Joi.string().required(),
+        })
+        .unknown(),
     }),
 
     getById: celebrate({
         [Segments.PARAMS]: Joi.object().keys({
             id: Joi.string().required(),
         }),
+        [Segments.HEADERS]: Joi.object().keys({
+            authorization: Joi.string().required(),
+        })
+        .unknown(),
     }),
 
     getByFilter: celebrate({
@@ -36,6 +44,10 @@ module.exports = {
             matricula_ativa: Joi.boolean().optional(),
         })
         .min(1),
+        [Segments.HEADERS]: Joi.object().keys({
+            authorization: Joi.string().required(),
+        })
+        .unknown(),
     }),
     updateById: celebrate({
         [Segments.PARAMS]: Joi.object().keys({
@@ -54,10 +66,18 @@ module.exports = {
             foto_url: Joi.string().optional(),
         })
         .min(1),
+        [Segments.HEADERS]: Joi.object().keys({
+            authorization: Joi.string().required(),
+        })
+        .unknown(),
     }),
     deleteById: celebrate({
         [Segments.PARAMS]: Joi.object().keys({
             id: Joi.string().required(),
+        }),
+        [Segments.HEADERS]: Joi.object().keys({
+            authorization: Joi.string().required(),
         })
+        .unknown(),
     }),
 }

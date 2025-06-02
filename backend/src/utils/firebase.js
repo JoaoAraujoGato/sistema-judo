@@ -21,7 +21,7 @@ module.exports = {
     },
 
     async login(email, password) {
-        const result = await signInWithEmailAndPassword(authl, email, password);
+        const result = await signInWithEmailAndPassword(auth, email, password);
 
         return result.user.uid;
     }

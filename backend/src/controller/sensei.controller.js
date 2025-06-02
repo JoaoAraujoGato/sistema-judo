@@ -35,6 +35,18 @@ module.exports = {
         }
     },
 
+    async getAll(req, res) {
+        try{
+            const result = await SenseiModel.getAll();
+            return res.status(200).json(result);
+        } catch (error) {
+            console.warn("Sensei getAll failed: " + error);
+            return (res.status(500).json({
+                notification: "Internal server error while trying to getAll Sensei",
+            }));
+        }
+    },
+
     async updateById(req, res) {
         try{
             const { id } = req.params;
