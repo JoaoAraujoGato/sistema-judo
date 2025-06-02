@@ -1,9 +1,15 @@
 const SenseiModel = require('../models/sensei.model');
+const Firebase = require('../utils/firebase');
 
 module.exports = {
     async create(req, res) {
         try{
             const novo_sensei = req.body;
+
+            const uid = await Firebase.createNewUser(novo_sensei.email, novo_sensei.senha);
+
+            delete novo_sensei.senha;
+            novo_sensei.firebase_id = uid;
 
             const result = await SenseiModel.create(novo_sensei);
             return res.status(200).json({id: result});

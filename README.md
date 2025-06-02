@@ -24,4 +24,15 @@ Após fazer as alterações desejadas, vamos rodar o seguinte comando para aplic
 npx knex migrate:latest
 ~~~
 
+Caso seja preciso atualizar uma migration depois de roda-la, vamos fazer o seguinte:
+  - Vamos fazer um rollback para desfazer as migrations que fizemos (repetir até fazer de todas)
+    ~~~
+    npx knex migrate:rollback
+    ~~~
+  - Alteramos o arquivo de migrate que foi criado anteriormente
+  - Rodar as migrations:
+    ~~~
+    npx knex migrate:latest
+    ~~~
+
 Documentação da biblioteca [Joi](https://joi.dev/api/?v=17.13.3#introduction)
