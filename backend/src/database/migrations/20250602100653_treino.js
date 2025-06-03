@@ -1,4 +1,4 @@
-const { TURMAS } = require("../../../../regras_negocio/constants/turma");
+const { TURMAS } = require("../../../../frontend/src/regras_negocio/constants/turma");
 
 exports.up = function(knex) {
   return knex.schema.createTable('treino', (table) => {

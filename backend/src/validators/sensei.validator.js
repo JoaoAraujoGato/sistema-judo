@@ -24,9 +24,9 @@ module.exports = {
         [Segments.BODY]: Joi.object().keys({
             nome: Joi.string().optional(),
             email: Joi.string().email().optional(),
-            faixa_atual: Joi.string().optional(),
-            graduacao_faixa_preta: Joi.string().optional(),
-            foto_url: Joi.string().optional(),
+            faixa_atual: Joi.string().allow('').optional(),
+            graduacao_faixa_preta: Joi.string().allow('').optional(),
+            foto_url: Joi.string().allow('').optional(),
         })
         .min(1),
     }),

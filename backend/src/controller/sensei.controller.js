@@ -51,6 +51,8 @@ module.exports = {
         try{
             const { id } = req.params;
             const sensei = req.body;
+
+            console.log('sensei >>>', sensei);
             
             const result = await SenseiModel.updateById(id, sensei);
             

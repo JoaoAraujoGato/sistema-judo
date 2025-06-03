@@ -1,4 +1,5 @@
 import { Box, Drawer, Toolbar, List, Divider, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { toast } from 'react-toastify';
 
 import {
     FaChartBar,
@@ -15,6 +16,9 @@ import { useCallback } from 'react';
 import { IconContext } from 'react-icons/lib';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { GiBlackBelt } from 'react-icons/gi';
+import { CiLogout } from "react-icons/ci";
+import { useAuth } from '../../services/auth';
+
 
 const drawerWidth = 200;
 const paginasNavegacao = [
@@ -54,6 +58,10 @@ const paginasNavegacao = [
         icon: <FaCog />,
         texto: 'Configurações',
         path: '/configuracoes',
+    },{
+        icon: <CiLogout />,
+        texto: 'Sair',
+        path: '/logout',
     },
 ];
 
@@ -61,10 +69,20 @@ function MenuLateral(props){
     const navigate = useNavigate();
     // O location não está fazendo nada já que o selected nao ta funfando, mas vou deixar para lembrar depois como pega o path
     const location = useLocation();
+    const { signOutUser } = useAuth();
 
     const handleClik = useCallback((pathName) => {
-        navigate(pathName)
-    },[navigate]);
+        if(pathName === '/logout'){
+            signOutUser();
+            toast.info("Até logo! Você saiu com sucesso 👋", {
+            position: "top-right",
+            autoClose: 3000,
+        });
+            navigate('/home');
+        } else {
+            navigate(pathName)
+        }
+    },[navigate, signOutUser]);
 
     return (
         <>
@@ -116,7 +134,7 @@ function MenuLateral(props){
                 </List>
             </Drawer>
             {/* Aqui fica o conteúdo da página, com margem lateral */}
-            <Box component="main" sx={{ marginLeft: `${drawerWidth}px`, padding: 2 }}>
+            <Box component="main" sx={{ marginLeft: `${drawerWidth}px` }}>
                 {props.children}
             </Box>
         </>

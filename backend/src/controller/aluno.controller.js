@@ -1,4 +1,4 @@
-const { getCurrentDate } = require('../../../regras_negocio/utils/data-helpers');
+const { getCurrentDate } = require('../../../frontend/src/regras_negocio/utils/data-helpers');
 const AlunoModel = require('../models/aluno.model');
 
 module.exports = {

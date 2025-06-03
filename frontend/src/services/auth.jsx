@@ -25,7 +25,9 @@ export const AuthProvider = ({ children }) => {
 
   const signOutUser = () => {
     sessionStorage.removeItem(AUTH_TOKEN_KEY);
+    sessionStorage.removeItem(USER_ID_KEY);
     setAuthToken(null);
+    setUserId(null);
   };
 
   const isAuthenticated = !!authToken;

@@ -1,4 +1,4 @@
-const { TIPO_MIDIA } = require("../../../../regras_negocio/constants/midia");
+const { TIPO_MIDIA } = require("../../../../frontend/src/regras_negocio/constants/midia");
 
 exports.up = function(knex) {
   return knex.schema.createTable('midia', (table) => {

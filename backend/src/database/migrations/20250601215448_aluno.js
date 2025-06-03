@@ -1,5 +1,5 @@
-const { CORES_FAIXAS } = require("../../../../regras_negocio/constants/cor_faixa");
-const { TURMAS } = require("../../../../regras_negocio/constants/turma");
+const { CORES_FAIXAS } = require("../../../../frontend/src/regras_negocio/constants/cor_faixa");
+const { TURMAS } = require("../../../../frontend/src/regras_negocio/constants/turma");
 
 //  exports.up faz as alterações que voce quer, ou seja, nesse primeiro momento vamos fazer a criação da tabela
 exports.up = function(knex) {

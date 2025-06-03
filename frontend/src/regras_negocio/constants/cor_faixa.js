@@ -14,14 +14,14 @@ exports.CORES_FAIXAS = Object.freeze({
 })
 
 exports.GRADUACAO_FAIXAS_PRETAS = Object.freeze({
-    SHO_DAN: "Sho_dan",
-    NI_DAN: "Ni_dan",
-    SAN_DAN: "San_dan",
-    YON_DAN: "Yon_dan",
-    GO_DAN: "Go_dan",
-    ROKU_DAN: "Roku_dan",
-    NANA_DAN: "Nana_dan",
-    HACHI_DAN: "Hachi_dan",
-    KU_DAN: "Ku_dan",
-    JU_DAN: "Ju_dan",
+    SHO_DAN: "Shodan",
+    NI_DAN: "Nidan",
+    SAN_DAN: "Sandan",
+    YON_DAN: "Yondan",
+    GO_DAN: "Godan",
+    ROKU_DAN: "Rokudan",
+    NANA_DAN: "Nanadan",
+    HACHI_DAN: "Hachidan",
+    KU_DAN: "Kudan",
+    JU_DAN: "Judan",
 })
