@@ -1,29 +1,32 @@
 import './login.css';
-import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate  } from 'react-router-dom';
 import api from '../../services/api';
 import { useAuth } from '../../services/auth';
+import { toast } from 'react-toastify';
 
 function LoginPage() {
     const navigate = useNavigate();
     const { authenticateUser } = useAuth();
-    const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
+        const form = e.target;
+        const email = form.elements.formBasicEmail.value;
+        const senha = form.elements.formBasicPassword.value;
+
         try {
             const response = await api.post('/login', {email, senha});
-            alert("Bem vindo " + response?.data?.sensei?.nome);
+            toast.success("Bem vindo " + response?.data?.sensei?.nome);
             authenticateUser(response?.data?.accessToken, response?.data?.sensei?.id);
             navigate("/dashboard");
         } catch (error) {
             if(error?.response?.status === 403) {
-                alert("Credenciais Inválidas");
+                toast.error("Credenciais Inválidas");
+            } else {
+                toast.error(error?.response?.data?.notification || "Erro ao fazer login");
             }
-            alert(error?.response?.data?.notification);
         }
     };
 
@@ -45,34 +48,31 @@ function LoginPage() {
                 <div className='d-flex flex-column'>
                     <Form onSubmit={handleLogin}>
                         <Form.Group className='mb-3' controlId='formBasicEmail'>
-                            {/* <InputGroup>
-                                <InputGroup.Text>
-                                    <i className="fa-regular fa-envelope"></i>
-                                </InputGroup.Text> */}
                                 <Form.Control
                                     type="email"
                                     placeholder="Email"
-                                    onChange={(e) => setEmail(e.target.value)}
                                 />
-                            {/* </InputGroup> */}
                         </Form.Group>
                         <Form.Group className='mb-3' controlId='formBasicPassword'>
-                            {/* <InputGroup>
-                                <InputGroup.Text>
-                                    <i className="fa-regular fa-lock"></i>
-                                </InputGroup.Text> */}
                                 <Form.Control
                                     type="password"
                                     placeholder="Senha"
-                                    onChange={(e) => setSenha(e.target.value)}
                                 />
-                            {/* </InputGroup> */}
                         </Form.Group>
 
                         <Button variant="primary" type="submit" className="w-100">
                             Entrar
                         </Button>
                     </Form>
+
+                    {/* Botão de voltar */}
+                    <Button
+                        variant="error"
+                        className="mt-3 btn-danger"
+                        onClick={() => navigate('/home')}
+                    >
+                        Voltar para Home
+                    </Button>
                 </div>
             </div>
         </div>
