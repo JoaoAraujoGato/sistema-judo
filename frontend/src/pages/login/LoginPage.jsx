@@ -17,7 +17,7 @@ function LoginPage() {
         try {
             const response = await api.post('/login', {email, senha});
             alert("Bem vindo " + response?.data?.sensei?.nome);
-            authenticateUser(response?.data?.accessToken);
+            authenticateUser(response?.data?.accessToken, response?.data?.sensei?.id);
             navigate("/dashboard");
         } catch (error) {
             if(error?.response?.status === 403) {
