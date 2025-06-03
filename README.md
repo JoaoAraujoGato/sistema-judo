@@ -36,3 +36,9 @@ Caso seja preciso atualizar uma migration depois de roda-la, vamos fazer o segui
     ~~~
 
 Documentação da biblioteca [Joi](https://joi.dev/api/?v=17.13.3#introduction)
+
+Para adicionar um icone do fontawsome, podemos fazer da seguinte maneira ([documentação](https://docs.fontawesome.com/web/add-icons/how-to) e [icons](https://fontawesome.com/search)):
+~~~html
+  <i class="fa-solid fa-user"></i>
+~~~
+que resulta em: <i class="fa-solid fa-user"></i>
