@@ -2,11 +2,12 @@ import './login.css';
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate  } from 'react-router-dom';
-import { login } from "../../services/auth";
 import api from '../../services/api';
+import { useAuth } from '../../services/auth';
 
 function LoginPage() {
     const navigate = useNavigate();
+    const { authenticateUser } = useAuth();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
@@ -16,7 +17,7 @@ function LoginPage() {
         try {
             const response = await api.post('/login', {email, senha});
             alert("Bem vindo " + response?.data?.sensei?.nome);
-            login(response?.data?.accessToken);
+            authenticateUser(response?.data?.accessToken);
             navigate("/dashboard");
         } catch (error) {
             if(error?.response?.status === 403) {
