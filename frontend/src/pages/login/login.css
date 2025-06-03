@@ -1,0 +1,32 @@
+.login-background {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.login-faixa {
+    width: 30vw;
+    max-width: 200px;
+    height: auto;
+}
+
+.login-title {
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    margin-top: 0.5rem;
+}
+
+.login-card {
+    background-color: white;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}

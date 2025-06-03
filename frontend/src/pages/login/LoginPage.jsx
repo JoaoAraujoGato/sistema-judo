@@ -1,50 +1,38 @@
+import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useNavigate  } from 'react-router-dom';
+import './login.css';
 
 function LoginPage() {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Evita que a página recarregue
+        alert("Email:" + email);
+        alert("Senha:" + senha);
+
+        navigate("/dashboard");
+    };
+
     return (
         <div
-            className='d-flex justify-content-center align-items-center flex-column'
-            style={{
-                backgroundImage: 'url("/images/FundoDeTelaJudoLoginAzul.png")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                height: '100vh',
-                width: '100%'
-            }}>
+            className='login-background d-flex justify-content-center align-items-center flex-column'
+            style={{ backgroundImage: 'url("/images/FundoDeTelaJudoLoginAzul.png")'}}>
             {/* Faixa e título fora do card */}
-            <div className='text-center mb-4'>
+            <div className='login-header text-center mb-4'>
                 <img
                     src="/images/FaixaLoginBranca.png"
                     alt="faixa"
-                    style={{
-                        width: '30vw',
-                        maxWidth: '200px',
-                        height: 'auto'
-                    }}
+                    className='login-faixa'
                 />
-                <h1
-                    style={{
-                        color: 'white',
-                        fontWeight: 'bold',
-                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)'
-                    }}
-                >
-                    Sistema Judô
-                </h1>
+                <h1 className='login-title'>Sistema Judô</h1>
             </div>
             {/* Card branco com formulário */}
-            <div
-                className='p-4 rounded shadow'
-                style={{
-                    backgroundColor: 'white',
-                    maxWidth: '400px',
-                    width: '90%',
-                    textAlign: 'center'
-                }}
-                >
+            <div className='login-card p-4 rounded shadow text-center'>
                 <div className='d-flex flex-column'>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group className='mb-3' controlId='formBasicEmail'>
                             {/* <InputGroup>
                                 <InputGroup.Text>
@@ -53,6 +41,7 @@ function LoginPage() {
                                 <Form.Control
                                     type="email"
                                     placeholder="Email"
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             {/* </InputGroup> */}
                         </Form.Group>
@@ -64,6 +53,7 @@ function LoginPage() {
                                 <Form.Control
                                     type="password"
                                     placeholder="Senha"
+                                    onChange={(e) => setSenha(e.target.value)}
                                 />
                             {/* </InputGroup> */}
                         </Form.Group>
