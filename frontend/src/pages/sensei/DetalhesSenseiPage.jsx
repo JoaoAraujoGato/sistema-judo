@@ -1,5 +1,7 @@
-export default function DetahesSenseiPage(){
+function DetahesSenseiPage(){
     return (
         <>Detalhes sensei</>
     )
 }
+
+export default DetahesSenseiPage;

@@ -7,6 +7,8 @@ module.exports = {
         try {
             const { email, senha } = req?.body;
 
+            console.log('email >>>', email);
+            console.log('senha >>>', senha);
             let firebaseId;
             try {
                 firebaseId = await Firebase.login(email, senha);

@@ -1,7 +1,7 @@
-function DetalhesHomePage(){
+function DetalhesDashboardPage(){
     return (
-        <>Home</>
+        <>Dashboard</>
     )
 }
 
-export default DetalhesHomePage;
+export default DetalhesDashboardPage;

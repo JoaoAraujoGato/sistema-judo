@@ -1,19 +1,29 @@
+import './login.css';
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate  } from 'react-router-dom';
-import './login.css';
+import { login } from "../../services/auth";
+import api from '../../services/api';
 
 function LoginPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Evita que a página recarregue
-        alert("Email:" + email);
-        alert("Senha:" + senha);
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-        navigate("/dashboard");
+        try {
+            const response = await api.post('/login', {email, senha});
+            alert("Bem vindo " + response?.data?.sensei?.nome);
+            login(response?.data?.accessToken);
+            navigate("/dashboard");
+        } catch (error) {
+            if(error?.response?.status === 403) {
+                alert("Credenciais Inválidas");
+            }
+            alert(error?.response?.data?.notification);
+        }
     };
 
     return (
@@ -32,7 +42,7 @@ function LoginPage() {
             {/* Card branco com formulário */}
             <div className='login-card p-4 rounded shadow text-center'>
                 <div className='d-flex flex-column'>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleLogin}>
                         <Form.Group className='mb-3' controlId='formBasicEmail'>
                             {/* <InputGroup>
                                 <InputGroup.Text>

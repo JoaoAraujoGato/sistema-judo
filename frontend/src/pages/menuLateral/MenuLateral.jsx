@@ -1,10 +1,20 @@
 import { Box, Drawer, Toolbar, List, Divider, ListItem, ListItemButton, ListItemText } from '@mui/material';
 
-import { FaChartBar, FaUserAlt, FaMoneyBillWave, FaDumbbell, FaCheckSquare, FaCalendarAlt, FaImages, FaCog } from 'react-icons/fa';
+import {
+    FaChartBar,
+    FaUserAlt,
+    // FaMoneyBillWave,
+    FaDumbbell,
+    FaCheckSquare,
+    FaCalendarAlt,
+    FaImages,
+    FaCog
+} from 'react-icons/fa';
 
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { IconContext } from 'react-icons/lib';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { GiBlackBelt } from 'react-icons/gi';
 
 const drawerWidth = 200;
 const paginasNavegacao = [
@@ -17,10 +27,10 @@ const paginasNavegacao = [
         texto: 'Alunos',
         path: '/alunos',
     },{
-        icon: <FaMoneyBillWave />,
-        texto: 'Mensalidades',
-        path: '/mensalidades',
-    },{
+    //     icon: <FaMoneyBillWave />,
+    //     texto: 'Mensalidades',
+    //     path: '/mensalidades',
+    // },{
         icon: <FaDumbbell />,
         texto: 'Treinos',
         path: '/treinos',
@@ -29,13 +39,17 @@ const paginasNavegacao = [
         texto: 'Presenças',
         path: '/presencas',
     },{
+        icon: <GiBlackBelt />,
+        texto: 'Professores',
+        path: '/sensei',
+    },{
         icon: <FaCalendarAlt />,
         texto: 'Eventos',
         path: '/eventos',
     },{
         icon: <FaImages />,
         texto: 'Galeria',
-        path: '/galeria',
+        path: '/galeria_admin',
     },{
         icon: <FaCog />,
         texto: 'Configurações',
@@ -45,10 +59,10 @@ const paginasNavegacao = [
 
 function MenuLateral(props){
     const navigate = useNavigate();
-    const [currentPage, setCurrentPage] = useState("/dashboard")
+    // O location não está fazendo nada já que o selected nao ta funfando, mas vou deixar para lembrar depois como pega o path
+    const location = useLocation();
 
     const handleClik = useCallback((pathName) => {
-        setCurrentPage(pathName);
         navigate(pathName)
     },[navigate]);
 
@@ -68,14 +82,13 @@ function MenuLateral(props){
                 anchor="left"
             >
                 <Toolbar sx={{ color: 'white' }}>
-                    <Box display="flex" alignItems="center">
+                    <Box display="flex" alignItems="center" sx={{ marginTop: '12px'}}>
                         <img
                             src="/images/LogoNekoJudoSemFundo.png"
                             alt="logo"
                             style={{
                                 width: '60px',
                                 height: '60px',
-                                marginTop: '2px' 
                             }}
                         />
                         <h6 style={{ margin: 0 }}>Neko Judo</h6>
@@ -84,7 +97,7 @@ function MenuLateral(props){
                 <Divider />
                 <List>
                 {paginasNavegacao.map(({icon, texto, path}, index) => (
-                    <ListItem key={texto} selected={currentPage === path} disablePadding onClick={() => handleClik(path)}>
+                    <ListItem key={texto} selected={location.pathname === path} disablePadding onClick={() => handleClik(path)}>
                     <ListItemButton>
                         <Box mr={2}>
                             <IconContext.Provider
