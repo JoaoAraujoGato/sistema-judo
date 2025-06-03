@@ -1,5 +1,5 @@
 const { initializeApp } = require('firebase/app');
-const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } = require('firebase/auth');
+const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail  } = require('firebase/auth');
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -24,5 +24,15 @@ module.exports = {
         const result = await signInWithEmailAndPassword(auth, email, password);
 
         return result.user.uid;
-    }
+    },
+
+    async resetPassword(email) {
+        try {
+            await sendPasswordResetEmail(auth, email);
+            return { success: true, message: "Email de recuperação enviado." };
+        } catch (error) {
+            return { success: false, message: error.message };
+        }
+        }
+
 }

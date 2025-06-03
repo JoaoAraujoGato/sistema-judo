@@ -6,6 +6,8 @@ import DetalhesGaleriaPage from '../pages/galeria/DetalhesGaleriaPage';
 import DetalhesHomePage from '../pages/home/DetalhesHomePage';
 // import DetalhesMensalidadesPage from './pages/mensalidades/DetalhesMensalidadesPage';
 import MenuLateral from '../pages/menuLateral/MenuLateral';
+import RecuperarSenhaPage from '../pages/login/RecuperarSenhaPage';
+
 import {
     AlunosRoutes,
     ConfiguracoesRoutes,
@@ -48,6 +50,7 @@ export default function AppRoutes() {
             <Routes>
                 <Route exact path='/galeria' element={<DetalhesGaleriaPage />}/>
                 <Route exact path='/login' element={<LoginPage />}/>
+                <Route exact path='/recuperar-senha' element={<RecuperarSenhaPage />}/>
                 <Route exact path="/home" element={<DetalhesHomePage />} />
 
                 {/* Rota vazia redireciona para /home */}

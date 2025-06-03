@@ -60,6 +60,14 @@ function LoginPage() {
                                 />
                         </Form.Group>
 
+                        <Button
+                            variant="link"
+                            className="btn-custom-link"
+                            onClick={() => navigate('/recuperar-senha')}
+                        >
+                            Esqueceu a senha?
+                        </Button>
+
                         <Button variant="primary" type="submit" className="w-100">
                             Entrar
                         </Button>

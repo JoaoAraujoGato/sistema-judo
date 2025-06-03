@@ -1,0 +1,10 @@
+.btn-custom-link-recuperar {
+  color: black !important;       /* Cor preta */
+  text-decoration: none !important; /* Remove sublinhado */
+}
+
+.btn-custom-link-recuperar:hover {
+  color: red !important;          /* Azul no hover */
+  text-decoration: none !important; /* Continua sem sublinhado */
+  cursor: pointer;                 /* Cursor pointer para indicar que é clicável */
+}

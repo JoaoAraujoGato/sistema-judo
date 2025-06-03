@@ -30,3 +30,15 @@
     width: 90%;
     text-align: center;
 }
+
+.btn-custom-link {
+  margin-top: -10px;
+  color: black !important;       /* Cor preta */
+  text-decoration: none !important; /* Remove sublinhado */
+}
+
+.btn-custom-link:hover {
+  color: blue !important;          /* Azul no hover */
+  text-decoration: none !important; /* Continua sem sublinhado */
+  cursor: pointer;                 /* Cursor pointer para indicar que é clicável */
+}

@@ -24,5 +24,22 @@ module.exports = {
             console.warn(error);
             return res.status(500).json({ message: "Error while trying to validade credentials"});
         }
+    },
+    async forgotPassword(req, res) {
+    try {
+        const { email } = req.body;
+
+        const result = await Firebase.resetPassword(email);
+
+        if (result.success) {
+            return res.status(200).json({ message: result.message });
+        } else {
+            return res.status(400).json({ message: result.message });
+        }
+    } catch (error) {
+        console.warn(error);
+        return res.status(500).json({ message: "Erro ao tentar recuperar a senha" });
     }
+}
+
 }
