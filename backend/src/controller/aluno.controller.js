@@ -1,13 +1,16 @@
 const { getCurrentDate } = require('../../../frontend/src/regras_negocio/utils/data-helpers');
 const AlunoModel = require('../models/aluno.model');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     async create(req, res) {
         try{
             const novo_aluno = req.body;
+            
+            novo_aluno.id = uuidv4();
             //Colocar no front depois
-            const dataCriacao = getCurrentDate();
-            novo_aluno.data_cadastro = dataCriacao;
+            // const dataCriacao = getCurrentDate();
+            // novo_aluno.data_cadastro = dataCriacao;
 
             const result = await AlunoModel.create(novo_aluno);
             return res.status(200).json({id: result});

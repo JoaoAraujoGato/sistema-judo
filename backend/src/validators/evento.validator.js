@@ -4,7 +4,7 @@ module.exports = {
     create: celebrate({
         [Segments.BODY]: Joi.object().keys({
             id: Joi.string().required(),
-            data: Joi.date().optional(),
+            data: Joi.string().optional(),
             local: Joi.string().optional(),
             nome: Joi.string().optional(),
             observacao: Joi.string().optional(),
@@ -19,8 +19,8 @@ module.exports = {
 
     getByFilter: celebrate({
         [Segments.QUERY]: Joi.object().keys({
-            data_inicio: Joi.date().optional(),
-            data_fim: Joi.date().optional(),
+            data_inicio: Joi.string().optional(),
+            data_fim: Joi.string().optional(),
             local: Joi.string().optional(),
             nome: Joi.string().optional(),
         })
@@ -31,7 +31,7 @@ module.exports = {
             id: Joi.string().required(),
         }),
         [Segments.BODY]: Joi.object().keys({
-            data: Joi.date().optional(),
+            data: Joi.string().optional(),
             local: Joi.string().optional(),
             nome: Joi.string().optional(),
             observacao: Joi.string().optional(),

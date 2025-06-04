@@ -6,7 +6,7 @@ exports.up = function(knex) {
     table.enu('tipo', Object.values(TIPO_MIDIA)).notNullable();
     table.string('url_arquivo');
     table.string('descricao');
-    table.date('data_upload');
+    table.string('data_upload');
   })
 };
 

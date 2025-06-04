@@ -4,7 +4,7 @@ exports.up = function(knex) {
     table.string('nome');
     table.string('local');
     table.string('observacao');
-    table.date('data');
+    table.string('data');
   })
 };
 

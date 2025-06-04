@@ -1,5 +1,5 @@
 exports.TURMAS = Object.freeze({
     INFANTIL: "Infantil",
-    INTERMEDIARIO: "Branca-Intermediário",
+    INTERMEDIARIO: "Intermediário",
     ADULTO: "Adulto",
 })

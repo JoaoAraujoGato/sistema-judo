@@ -8,6 +8,8 @@ exports.up = function(knex) {
     table.enu('faixa_atual', [...Object.values(CORES_FAIXAS), '', null]);
     table.enu('graduacao_faixa_preta', [...Object.values(GRADUACAO_FAIXAS_PRETAS),'', null]);
     table.string('foto_url');
+    table.string('peso');
+    table.string('data_nascimento');
     table.string('firebase_id').notNullable();
   })
 };

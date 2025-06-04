@@ -7,7 +7,7 @@ module.exports = {
             duracao: Joi.string().optional(),
             descricao: Joi.string().optional(),
             turma: Joi.string().optional(),
-            data: Joi.date().optional(),
+            data: Joi.string().optional(),
         }),
     }),
 
@@ -19,8 +19,8 @@ module.exports = {
 
     getByFilter: celebrate({
         [Segments.QUERY]: Joi.object().keys({
-            data_inicio: Joi.date().optional(),
-            data_fim: Joi.date().optional(),
+            data_inicio: Joi.string().optional(),
+            data_fim: Joi.string().optional(),
             turma: Joi.string().optional(),
         })
         .min(1),
@@ -33,7 +33,7 @@ module.exports = {
             duracao: Joi.string().optional(),
             descricao: Joi.string().optional(),
             turma: Joi.string().optional(),
-            data: Joi.date().optional(),
+            data: Joi.string().optional(),
         })
         .min(1),
     }),

@@ -6,7 +6,7 @@ exports.up = function(knex) {
     table.string('duracao');
     table.string('descricao');
     table.enu('turma', Object.values(TURMAS));
-    table.date('data');
+    table.string('data');
   })
 };
 

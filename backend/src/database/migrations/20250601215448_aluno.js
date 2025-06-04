@@ -6,15 +6,17 @@ exports.up = function(knex) {
   return knex.schema.createTable('aluno', (table) => {
     table.string('id').primary().notNullable();
     table.string('nome').notNullable();
+    table.string('sobrenome').notNullable();
     table.string('email');
     table.string('sexo');
-    table.date('data_nascimento');
+    table.string('data_nascimento');
+    table.string('peso');
     table.string('telefone_responsavel');
     table.string('nome_pai_responsavel');
     table.string('nome_mae_responsavel');
     table.enu('turma', Object.values(TURMAS));
     table.enu('faixa_atual', Object.values(CORES_FAIXAS));
-    table.date('data_cadastro').notNullable();
+    table.string('data_cadastro').notNullable();
     table.boolean('matricula_ativa').notNullable();
     table.string('foto_url');
   })

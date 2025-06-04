@@ -4,7 +4,7 @@ module.exports = {
     create: celebrate({
         [Segments.BODY]: Joi.object().keys({
             id: Joi.string().required(),
-            data_upload: Joi.date().optional(),
+            data_upload: Joi.string().optional(),
             tipo: Joi.string().required(),
             url_arquivo: Joi.string().optional(),
             descricao: Joi.string().optional(),
@@ -19,8 +19,8 @@ module.exports = {
 
     getByFilter: celebrate({
         [Segments.QUERY]: Joi.object().keys({
-            data_inicio: Joi.date().optional(),
-            data_fim: Joi.date().optional(),
+            data_inicio: Joi.string().optional(),
+            data_fim: Joi.string().optional(),
             tipo: Joi.string().required(),
         })
         .min(1),
@@ -30,7 +30,7 @@ module.exports = {
             id: Joi.string().required(),
         }),
         [Segments.BODY]: Joi.object().keys({
-            data_upload: Joi.date().optional(),
+            data_upload: Joi.string().optional(),
             tipo: Joi.string().required(),
             url_arquivo: Joi.string().optional(),
             descricao: Joi.string().optional(),

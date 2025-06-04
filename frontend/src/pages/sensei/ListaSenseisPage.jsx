@@ -75,65 +75,74 @@ export default function ListaSenseisPage() {
     },[carregarSenseis]);
 
     return (
-        <Box p={4}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-            <Typography variant="h5" fontWeight="bold">
-            Professores Cadastrados
-            </Typography>
-            <Button variant="contained" color="primary" onClick={() => handleCadastrarProfessor()}>
-            + Cadastrar Professor
-            </Button>
-        </Box>
-
-        <TableContainer component={Paper}>
-            <Table>
-            <TableHead>
-                <TableRow>
-                <TableCell>Nome</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Faixa</TableCell>
-                <TableCell align="center">Ações</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {senseis.map((prof) => (
-                <TableRow key={prof.id}>
-                    <TableCell>{prof.nome}</TableCell>
-                    <TableCell>{prof.email}</TableCell>
-                    <TableCell>{prof.faixa_atual}</TableCell>
-                    <TableCell align="center">
-                    <IconButton onClick={() => handleEditar(prof.id)} color="primary">
-                        <FiEdit />
-                    </IconButton>
-                    <IconButton onClick={() => confirmarExclusao(prof.id)} color="error">
-                        <FiTrash2 />
-                    </IconButton>
-                    </TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            </Table>
-        </TableContainer>
-        {/* Modal de confirmação */}
-        <Dialog
-            open={modalAberto}
-            onClose={() => setModalAberto(false)}
+        <Box
+            p={4}
+            minHeight="100vh"
+            sx={{
+                backgroundImage: `url("/images/FundoDeTelaJudoCinza.png")`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+            }}
         >
-            <DialogTitle>Confirmar Exclusão</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    Tem certeza que deseja excluir este professor? Esta ação não poderá ser desfeita.
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={() => setModalAberto(false)} color="inherit">
-                    Cancelar
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+                <Typography variant="h5" fontWeight="bold">
+                    Professores Cadastrados
+                </Typography>
+                <Button variant="contained" color="primary" onClick={() => handleCadastrarProfessor()}>
+                    + Cadastrar Professor
                 </Button>
-                <Button onClick={excluirProfessor} color="error">
-                    Excluir
-                </Button>
-            </DialogActions>
-        </Dialog>
+            </Box>
+
+            <TableContainer component={Paper}>
+                <Table>
+                <TableHead>
+                    <TableRow>
+                    <TableCell>Nome</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Faixa</TableCell>
+                    <TableCell align="center">Ações</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {senseis.map((prof) => (
+                    <TableRow key={prof.id}>
+                        <TableCell>{prof.nome}</TableCell>
+                        <TableCell>{prof.email}</TableCell>
+                        <TableCell>{prof.faixa_atual}</TableCell>
+                        <TableCell align="center">
+                        <IconButton onClick={() => handleEditar(prof.id)} color="primary">
+                            <FiEdit />
+                        </IconButton>
+                        <IconButton onClick={() => confirmarExclusao(prof.id)} color="error">
+                            <FiTrash2 />
+                        </IconButton>
+                        </TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </TableContainer>
+            {/* Modal de confirmação */}
+            <Dialog
+                open={modalAberto}
+                onClose={() => setModalAberto(false)}
+            >
+                <DialogTitle>Confirmar Exclusão</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Tem certeza que deseja excluir este professor? Esta ação não poderá ser desfeita.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setModalAberto(false)} color="inherit">
+                        Cancelar
+                    </Button>
+                    <Button onClick={excluirProfessor} color="error">
+                        Excluir
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 }

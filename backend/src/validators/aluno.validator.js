@@ -3,19 +3,20 @@ const { celebrate, Segments, Joi } = require('celebrate');
 module.exports = {
     create: celebrate({
         [Segments.BODY]: Joi.object().keys({
-            id: Joi.string().required(),
             nome: Joi.string().required(),
-            matricula_ativa: Joi.boolean().required(),
+            sobrenome: Joi.string().required(),
             sexo: Joi.string().required(),
-            email: Joi.string().email().optional(),
-            data_nascimento: Joi.date().optional(),
-            telefone_responsavel: Joi.string().optional(),
-            nome_pai_responsavel: Joi.string().optional(),
-            nome_mae_responsavel: Joi.string().optional(),
+            peso: Joi.string().allow('').optional(),
+            email: Joi.string().email().allow('').optional(),
+            data_nascimento: Joi.string().optional(),
+            telefone_responsavel: Joi.string().allow('').optional(),
+            nome_pai_responsavel: Joi.string().allow('').optional(),
+            nome_mae_responsavel: Joi.string().allow('').optional(),
             turma: Joi.string().optional(),
             faixa_atual: Joi.string().optional(),
-            data_cadastro: Joi.date().required(),
-            foto_url: Joi.string().optional(),
+            matricula_ativa: Joi.boolean().truthy(1).falsy(0).truthy('true').falsy('false').optional(),
+            foto_url: Joi.string().allow(null).optional(),
+            data_cadastro: Joi.string().required(),
         }),
         [Segments.HEADERS]: Joi.object().keys({
             authorization: Joi.string().required(),
@@ -36,14 +37,15 @@ module.exports = {
     getByFilter: celebrate({
         [Segments.QUERY]: Joi.object().keys({
             nome: Joi.string().optional(),
+            sobrenome: Joi.string().optional(),
             nome_pai_responsavel: Joi.string().optional(),
             nome_mae_responsavel: Joi.string().optional(),
+            peso: Joi.string().allow('').optional(),
             sexo: Joi.string().optional(),
             turma: Joi.string().optional(),
             faixa_atual: Joi.string().optional(),
-            data_inicio: Joi.date().optional(),
-            data_fim: Joi.date().optional(),
-            matricula_ativa: Joi.boolean().optional(),
+            data_inicio: Joi.string().optional(),
+            data_fim: Joi.string().optional(),
         })
         .min(1),
         [Segments.HEADERS]: Joi.object().keys({
@@ -57,16 +59,18 @@ module.exports = {
         }),
         [Segments.BODY]: Joi.object().keys({
             nome: Joi.string().optional(),
-            matricula_ativa: Joi.boolean().optional(),
+            sobrenome: Joi.string().optional(),
             email: Joi.string().email().optional(),
             sexo: Joi.string().optional(),
-            data_nascimento: Joi.date().optional(),
+            peso: Joi.string().allow('').optional(),
+            data_nascimento: Joi.string().optional(),
             telefone_responsavel: Joi.string().optional(),
             nome_pai_responsavel: Joi.string().optional(),
             nome_mae_responsavel: Joi.string().optional(),
             turma: Joi.string().optional(),
             faixa_atual: Joi.string().optional(),
-            foto_url: Joi.string().optional(),
+            matricula_ativa: Joi.boolean().truthy(1).falsy(0).truthy('true').falsy('false').optional(),
+            foto_url: Joi.string().allow(null).optional(),
         })
         .min(1),
         [Segments.HEADERS]: Joi.object().keys({

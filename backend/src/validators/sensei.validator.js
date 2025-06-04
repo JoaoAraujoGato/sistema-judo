@@ -7,6 +7,8 @@ module.exports = {
             email: Joi.string().email().required(),
             senha: Joi.string().min(6).required(),
             faixa_atual: Joi.string().optional().allow(''),
+            peso: Joi.string().optional(),
+            data_nascimento: Joi.string().optional(),
             graduacao_faixa_preta: Joi.string().optional().allow(''),
             foto_url: Joi.string().optional().allow(''),
         }),
@@ -25,6 +27,8 @@ module.exports = {
             nome: Joi.string().optional(),
             email: Joi.string().email().optional(),
             faixa_atual: Joi.string().allow('').optional(),
+            peso: Joi.string().optional(),
+            data_nascimento: Joi.string().optional(),
             graduacao_faixa_preta: Joi.string().allow('').optional(),
             foto_url: Joi.string().allow('').optional(),
         })

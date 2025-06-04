@@ -6,7 +6,7 @@ exports.up = function(knex) {
     table.string('id').primary().notNullable();
     table.string('id_aluno').notNullable();
     table.foreign('id_aluno').references('id').inTable('aluno').onDelete('cascade')
-    table.date('data');
+    table.string('data');
     table.enu('faixa_anterior', Object.values(CORES_FAIXAS));
     table.enu('faixa_nova', Object.values(CORES_FAIXAS));
     table.string('observacao');
