@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   TextField,
@@ -16,20 +16,19 @@ import api from '../../services/api';
 import { useAuth } from "../../services/auth";
 import { toast } from "react-toastify";
 import { CORES_FAIXAS, GRADUACAO_FAIXAS_PRETAS } from "../../regras_negocio/constants/cor_faixa";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function DetahesConfiguracaoPage() {
+export default function NovoCadastroSenseiPage() {
   const navigate = useNavigate();
-  const {id: senseiId} = useParams();
-  const {userId} = useAuth();
+  const { userId } = useAuth();
 
-  const id = useMemo(() => senseiId ? senseiId : userId,[senseiId, userId]);
   const [perfil, setPerfil] = useState({
       nome: "",
       email: "",
       faixa_atual: "branca",
       graduacao_faixa_preta: "",
       foto_url: "",
+      senha: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -49,30 +48,6 @@ export default function DetahesConfiguracaoPage() {
       }
   };
 
-  useEffect(() => {
-      if (!id) return;
-
-      async function loadProfile() {
-          setLoading(true);
-          try {
-              const { data } = await api.get(`/sensei/${id}`);
-              setPerfil({
-                  nome: data?.nome || "",
-                  email: data?.email || "",
-                  faixa_atual: data?.faixa_atual || "branca",
-                  graduacao_faixa_preta: data?.graduacao_faixa_preta || "",
-                  foto_url: data?.foto_url || "",
-              });
-          } catch (error) {
-              toast.error("Erro ao carregar perfil:", error);
-          } finally {
-              setLoading(false);
-          }
-      }
-
-      loadProfile();
-    }, [id]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!userId) {
@@ -82,16 +57,13 @@ export default function DetahesConfiguracaoPage() {
 
         setLoading(true);
         try {
-            await api.put(`/sensei/${id}`, perfil);
+            await api.post(`/sensei`, perfil);
             toast.success("Perfil salvo com sucesso!");
-            if (senseiId) {
-              navigate(-1); // volta para página anterior
-            } else {
-              navigate('/dashboard'); // volta para o painel do próprio usuário
-            }
+            navigate('/senseis');
         } catch (error) {
             toast.error("Erro ao salvar perfil.");
             console.error(error);
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -121,7 +93,7 @@ export default function DetahesConfiguracaoPage() {
           borderRadius={2}
       >
         <Typography variant="h4" fontWeight="bold" mb={3}>
-          Configurações do Perfil
+          Novo cadastro de professor
         </Typography>
 
         <Stack spacing={3}>
@@ -139,6 +111,16 @@ export default function DetahesConfiguracaoPage() {
             type="email"
             name="email"
             value={perfil.email}
+            onChange={handleChange}
+            fullWidth
+            disabled={loading}
+          />
+
+          <TextField
+            label="Senha"
+            type="password"
+            name="senha"
+            value={perfil.senha}
             onChange={handleChange}
             fullWidth
             disabled={loading}

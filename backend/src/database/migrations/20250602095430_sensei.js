@@ -5,8 +5,8 @@ exports.up = function(knex) {
     table.string('id').primary().notNullable();
     table.string('nome').notNullable();
     table.string('email').notNullable();
-    table.enu('faixa_atual', [...Object.values(CORES_FAIXAS), '']);
-    table.enu('graduacao_faixa_preta', [...Object.values(GRADUACAO_FAIXAS_PRETAS),'']);
+    table.enu('faixa_atual', [...Object.values(CORES_FAIXAS), '', null]);
+    table.enu('graduacao_faixa_preta', [...Object.values(GRADUACAO_FAIXAS_PRETAS),'', null]);
     table.string('foto_url');
     table.string('firebase_id').notNullable();
   })

@@ -45,7 +45,7 @@ const paginasNavegacao = [
     },{
         icon: <GiBlackBelt />,
         texto: 'Professores',
-        path: '/sensei',
+        path: '/senseis',
     },{
         icon: <FaCalendarAlt />,
         texto: 'Eventos',
