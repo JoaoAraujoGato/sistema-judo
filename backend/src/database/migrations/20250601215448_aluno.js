@@ -7,6 +7,7 @@ exports.up = function(knex) {
     table.string('id').primary().notNullable();
     table.string('nome').notNullable();
     table.string('email');
+    table.string('sexo');
     table.date('data_nascimento');
     table.string('telefone_responsavel');
     table.string('nome_pai_responsavel');
