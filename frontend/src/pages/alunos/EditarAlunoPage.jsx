@@ -48,7 +48,6 @@ export default function EditarAlunoPage() {
     // Remove o campo id antes de enviar
     const { id, data_cadastro, ...alunoSemId } = aluno;
 
-    console.log('alunoSemId >>>', alunoSemId);
     try {
         if (alunoId) {
             // editar
