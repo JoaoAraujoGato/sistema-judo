@@ -35,6 +35,33 @@ Caso seja preciso atualizar uma migration depois de roda-la, vamos fazer o segui
     npx knex migrate:latest
     ~~~
 
+Caso seja preciso adicionar um campo novo em uma tabela temos que criar uma nova migration:
+
+  ~~~
+    npx knex migrate:make add_nomecampo_to_treino
+  ~~~
+
+Em seguida, no código vamos fazer o seguinte por exemplo:
+
+  ~~~
+    exports.up = function(knex) {
+      return knex.schema.alterTable('treino', (table) => {
+        table.string('nomecampo'); // substitua pelo nome e tipo desejado
+      });
+    };
+
+    exports.down = function(knex) {
+      return knex.schema.alterTable('treino', (table) => {
+        table.dropColumn('nomecampo');
+      });
+    };
+  ~~~
+
+Para finalizar, rodar:
+  ~~~
+    npx knex migrate:latest
+  ~~~
+
 Documentação da biblioteca [Joi](https://joi.dev/api/?v=17.13.3#introduction)
 
 Para adicionar um icone do fontawsome, podemos fazer da seguinte maneira ([documentação](https://docs.fontawesome.com/web/add-icons/how-to) e [icons](https://fontawesome.com/search)):

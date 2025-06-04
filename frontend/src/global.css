@@ -10,3 +10,21 @@ body,
 div#root {
     height: 100%;
 }
+
+/* Estilo padrão para os números dos dias */
+.fc-daygrid-day-number {
+  font-size: 1rem;        /* Tamanho normal */
+  vertical-align: baseline !important; /* Remove alinhamento de subscrito */
+  text-decoration: none;
+  font-weight: 500;
+  color: #333;            /* Cor padrão (pode personalizar) */
+}
+
+/* Estilo dos dias da semana (cabeçalho) */
+.fc-col-header-cell-cushion {
+  color: #1976d2;         /* Cor azul (exemplo) */
+  vertical-align: baseline !important; /* Remove alinhamento de subscrito */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+}

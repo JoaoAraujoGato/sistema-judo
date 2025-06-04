@@ -3,11 +3,11 @@ const { celebrate, Segments, Joi } = require('celebrate');
 module.exports = {
     create: celebrate({
         [Segments.BODY]: Joi.object().keys({
-            id: Joi.string().required(),
             duracao: Joi.string().optional(),
             descricao: Joi.string().optional(),
             turma: Joi.string().optional(),
             data: Joi.string().optional(),
+            horario: Joi.string().optional(),
         }),
     }),
 
@@ -22,6 +22,7 @@ module.exports = {
             data_inicio: Joi.string().optional(),
             data_fim: Joi.string().optional(),
             turma: Joi.string().optional(),
+            horario: Joi.string().optional(),
         })
         .min(1),
     }),
@@ -34,6 +35,7 @@ module.exports = {
             descricao: Joi.string().optional(),
             turma: Joi.string().optional(),
             data: Joi.string().optional(),
+            horario: Joi.string().optional(),
         })
         .min(1),
     }),

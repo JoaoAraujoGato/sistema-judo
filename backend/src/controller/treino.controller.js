@@ -1,9 +1,11 @@
 const TreinoModel = require('../models/treino.model');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     async create(req, res) {
         try{
             const novo_treino = req.body;
+            novo_treino.id = uuidv4();
 
             const result = await TreinoModel.create(novo_treino);
             return res.status(200).json({id: result});
