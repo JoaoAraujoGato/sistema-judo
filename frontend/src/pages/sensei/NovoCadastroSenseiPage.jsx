@@ -63,7 +63,6 @@ export default function NovoCadastroSenseiPage() {
         } catch (error) {
             toast.error("Erro ao salvar perfil.");
             console.error(error);
-            console.log(error);
         } finally {
             setLoading(false);
         }
