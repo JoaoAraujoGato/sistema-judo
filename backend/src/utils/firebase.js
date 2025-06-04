@@ -1,5 +1,5 @@
 const { initializeApp } = require('firebase/app');
-const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail  } = require('firebase/auth');
+const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, updateEmail } = require('firebase/auth');
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -23,7 +23,7 @@ module.exports = {
     async login(email, password) {
         const result = await signInWithEmailAndPassword(auth, email, password);
 
-        return result.user.uid;
+        return result.user;
     },
 
     async resetPassword(email) {
@@ -33,6 +33,15 @@ module.exports = {
         } catch (error) {
             return { success: false, message: error.message };
         }
+    },
+
+    async updateUserEmail(currentUser, newEmail) {
+        try {
+            await updateEmail(currentUser, newEmail);
+            return { success: true, message: "Email atualizado com sucesso." };
+        } catch (error) {
+            return { success: false, message: error.message };
         }
+    }
 
 }

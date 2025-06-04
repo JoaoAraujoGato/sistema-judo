@@ -1,9 +1,12 @@
 const EventoModel = require('../models/evento.model');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     async create(req, res) {
         try{
             const novo_evento = req.body;
+            
+            novo_evento.id = uuidv4();
 
             const result = await EventoModel.create(novo_evento);
             return res.status(200).json({id: result});

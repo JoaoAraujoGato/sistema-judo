@@ -52,6 +52,10 @@ module.exports = {
             const { id } = req.params;
             const sensei = req.body;
 
+            if(sensei?.email) {
+                //alterar o email no firebase
+            }
+
             
             const result = await SenseiModel.updateById(id, sensei);
             

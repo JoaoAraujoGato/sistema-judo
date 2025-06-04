@@ -141,7 +141,7 @@ export default function DetahesConfiguracaoPage() {
             value={perfil.email}
             onChange={handleChange}
             fullWidth
-            disabled={loading}
+            disabled={true}
           />
 
           <FormControl fullWidth>
