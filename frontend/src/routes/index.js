@@ -3,6 +3,7 @@ export * from './configuracoes.routes';
 export * from './dashboard.routes';
 export * from './eventos.routes';
 export * from './galeria.routes';
+export * from './mensalidades.routes';
 export * from './presencas.routes';
 export * from './sensei.routes';
 export * from './treino.routes';

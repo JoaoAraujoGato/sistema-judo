@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import {
     FaChartBar,
     FaUserAlt,
-    // FaMoneyBillWave,
+    FaMoneyBillWave,
     FaDumbbell,
     FaCheckSquare,
     FaCalendarAlt,
@@ -31,10 +31,10 @@ const paginasNavegacao = [
         texto: 'Alunos',
         path: '/alunos',
     },{
-    //     icon: <FaMoneyBillWave />,
-    //     texto: 'Mensalidades',
-    //     path: '/mensalidades',
-    // },{
+        icon: <FaMoneyBillWave />,
+        texto: 'Mensalidades',
+        path: '/mensalidades',
+    },{
         icon: <FaDumbbell />,
         texto: 'Treinos',
         path: '/treinos',

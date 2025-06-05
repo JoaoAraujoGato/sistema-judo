@@ -15,6 +15,7 @@ import {
     EventosRoutes,
     GaleriasRoutes,
     PresencasRoutes,
+    MensalidadesRoutes,
     SenseiRoutes,
     TreinosRoutes
 } from './index';
@@ -33,6 +34,7 @@ function LayoutComMenu(){
                         <DetalhesMensalidadesPage />
                     </PrivateRoute>
                 }/>  */}
+                {MensalidadesRoutes()}
                 {PresencasRoutes()}
                 {SenseiRoutes()}
                 {TreinosRoutes()}
