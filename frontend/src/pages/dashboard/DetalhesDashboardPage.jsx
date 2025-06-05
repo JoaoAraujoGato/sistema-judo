@@ -3,14 +3,8 @@ import {
   Card,
   CardContent,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
 } from "@mui/material";
 import {
-  PieChart,
-  Pie,
-  Cell,
   Tooltip,
   ResponsiveContainer,
   BarChart,
@@ -19,18 +13,9 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
-import { FiUser } from "react-icons/fi"; // ícones do react-icons
-
-const alunosPorTurma = [
-  { turma: "Turma A", quantidade: 12 },
-  { turma: "Turma B", quantidade: 18 },
-  { turma: "Turma C", quantidade: 9 },
-];
-
-const generoData = [
-  { name: "Masculino", value: 22 },
-  { name: "Feminino", value: 17 },
-];
+import { AlunosPorTurma, GraficoPorGeneroAlunos } from "./DadosAlunosDashboard";
+import { TreinosDaSemana } from "./DadosTreinosDashboard";
+import { ProximosEventos } from "./DadosEventosDashboard";
 
 const mensalidadesAtrasadas = 5;
 const presencasUltimoTreino = 28;
@@ -43,25 +28,6 @@ const evolucaoMensal = [
   { mes: "Mai", alunos: 15 },
   { mes: "Jun", alunos: 9 },
 ];
-
-const treinosDoDia = [
-  {
-    titulo: "Treino Funcional",
-    descricao: "Circuito com foco em resistência e agilidade.",
-  },
-  {
-    titulo: "Alongamento",
-    descricao: "Sessão para relaxamento muscular e flexibilidade.",
-  },
-];
-
-const proximosEventos = [
-  { data: "15/06", titulo: "Festival Interno de Lutas" },
-  { data: "25/07", titulo: "Avaliação Semestral" },
-  { data: "12/08", titulo: "Palestra sobre Nutrição Esportiva" },
-];
-
-const COLORS = ["#0d00ff", "#eb13e0"];
 
 function DetalhesDashboardPage() {
   return (
@@ -104,59 +70,9 @@ function DetalhesDashboardPage() {
                     >
                         <CardContent>
                             {i === 0 && (
-                                <>
-                                    <Typography variant="h6">Alunos por Turma</Typography>
-                                    {alunosPorTurma.map((item) => (
-                                    <Typography key={item.turma} variant="body2">
-                                        {item.turma}: {item.quantidade}
-                                    </Typography>
-                                    ))}
-                                </>
+                                <AlunosPorTurma />
                             )} {i === 1 && (
-                                <>
-                                    <Typography variant="h6" gutterBottom>
-                                    Distribuição por Gênero
-                                    </Typography>
-                                    <ResponsiveContainer width="100%" height={120}>
-                                    <PieChart>
-                                        <Pie
-                                        data={generoData}
-                                        cx="50%"
-                                        cy="50%"
-                                        outerRadius={40}
-                                        labelLine={false}
-                                        dataKey="value"
-                                        >
-                                        {generoData.map((entry, index) => (
-                                            <Cell
-                                            key={`cell-${index}`}
-                                            fill={COLORS[index % COLORS.length]}
-                                            />
-                                        ))}
-                                        </Pie>
-                                        <Tooltip />
-                                    </PieChart>
-                                    </ResponsiveContainer>
-
-                                    {/* Legenda com ícones */}
-                                    <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        gap: 3,
-                                        mt: 2,
-                                    }}
-                                    >
-                                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                        <FiUser color={COLORS[0]} size={20} />
-                                        <Typography>Masculino</Typography>
-                                    </Box>
-                                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                        <FiUser color={COLORS[1]} size={20} />
-                                        <Typography>Feminino</Typography>
-                                    </Box>
-                                    </Box>
-                                </>
+                                <GraficoPorGeneroAlunos />
                             )} {i === 2 && (
                                 <>
                                     <Typography variant="h6">Mensalidades Atrasadas</Typography>
@@ -165,7 +81,7 @@ function DetalhesDashboardPage() {
                             )} {i === 3 && (
                                 <>
                                     <Typography variant="h6">
-                                    Presenças no Último Treino
+                                        Presenças no Último Treino
                                     </Typography>
                                     <Typography variant="h4">{presencasUltimoTreino}</Typography>
                                 </>
@@ -187,23 +103,7 @@ function DetalhesDashboardPage() {
             }}
         >
             {/* Coluna da esquerda - Treinos do Dia */}
-            <Box sx={{ flex: 1, minWidth: 300 }}>
-                <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                    <CardContent>
-                        <Typography variant="h6">Treinos do Dia</Typography>
-                        <List>
-                            {treinosDoDia.map((treino, index) => (
-                                <ListItem key={index}>
-                                <ListItemText
-                                    primary={treino.titulo}
-                                    secondary={treino.descricao}
-                                />
-                                </ListItem>
-                            ))}
-                        </List>
-                    </CardContent>
-                </Card>
-            </Box>
+            <TreinosDaSemana />
 
             {/* Coluna da direita - 2 cards empilhados */}
             <Box
@@ -234,21 +134,7 @@ function DetalhesDashboardPage() {
                 </Card>
 
                 {/* Card: Próximos Eventos */}
-                <Card>
-                    <CardContent>
-                        <Typography variant="h6">Próximos Eventos</Typography>
-                        <List>
-                            {proximosEventos.map((evento, index) => (
-                                <ListItem key={index}>
-                                <ListItemText
-                                    primary={evento.titulo}
-                                    secondary={`Data: ${evento.data}`}
-                                />
-                                </ListItem>
-                            ))}
-                        </List>
-                    </CardContent>
-                </Card>
+                <ProximosEventos />
             </Box>
         </Box>
 
