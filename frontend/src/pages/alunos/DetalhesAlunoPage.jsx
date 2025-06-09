@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import { calcularIdade, formatarData } from "../../regras_negocio/utils/data-helpers";
 import { classificarIdade, classificarPeso } from "../../regras_negocio/utils/categoria-competicao";
 import { FaArrowLeft, FaEdit, FaTrash } from 'react-icons/fa';
+import { TIPO_CONDICAO } from "../../regras_negocio/constants/aluno";
 
 
 export default function DetalhesAlunoPage() {
@@ -135,7 +136,8 @@ export default function DetalhesAlunoPage() {
                             <Typography><strong>Data de Nascimento:</strong> {formatarData(aluno.data_nascimento)}</Typography>
                             <Typography><strong>Turma:</strong> {aluno.turma}</Typography>
                             <Typography><strong>Idade:</strong> {idadeAluno} anos ({classificacaoIdade.label})</Typography>
-                            <Typography><strong>Peso:</strong> {aluno?.peso} kg ({classificacaoPeso})</Typography>
+                            <Typography><strong>Peso:</strong> {aluno?.peso ? `${aluno?.peso} kg (${classificacaoPeso})` : '-'}</Typography>
+                            <Typography><strong>Perfil Neurodesenvolvimento:</strong> {aluno?.perfil_neurodesenvolvimento} </Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Typography><strong>Email:</strong> {aluno.email}</Typography>
@@ -145,6 +147,7 @@ export default function DetalhesAlunoPage() {
                             <Typography><strong>Faixa Atual:</strong> {aluno.faixa_atual}</Typography>
                             <Typography><strong>Data de Cadastro:</strong> {formatarData(aluno.data_cadastro)}</Typography>
                             <Typography><strong>Matrícula Ativa:</strong> {aluno.matricula_ativa ? "Sim" : "Não"}</Typography>
+                            <Typography><strong>Tipo de Condição:</strong> {aluno.tipo_condicao === TIPO_CONDICAO.OUTRO ? aluno.descricao_condicao : aluno.tipo_condicao}</Typography>
                         </Grid>
                     </Grid>
                 </Paper>

@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { TURMAS } from "../../regras_negocio/constants/turma";
 import { CORES_FAIXAS } from "../../regras_negocio/constants/cor_faixa";
 import { getCurrentDate } from "../../regras_negocio/utils/data-helpers";
+import { PERFIL_NEURODESENVOLVIMENTO, TIPO_CONDICAO } from "../../regras_negocio/constants/aluno";
 
 export default function EditarAlunoPage() {
   const navigate = useNavigate();
@@ -33,14 +34,24 @@ export default function EditarAlunoPage() {
     faixa_atual: "",
     matricula_ativa: true,
     foto_url: " ",
+    perfil_neurodesenvolvimento: "",
+    tipo_condicao: "",
+    descricao_condicao: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAluno((prev) => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    setAluno((prev) => {
+      const updated = { ...prev, [name]: value };
+
+      // limpa a descrição se não for "Outro"
+      if (name === "tipo_condicao" && value !== "Outro") {
+        updated.descricao_condicao = "";
+      }
+
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -157,6 +168,50 @@ export default function EditarAlunoPage() {
                     Object.values(CORES_FAIXAS).map((faixa) => <MenuItem value={faixa}>{faixa}</MenuItem> )
                 }
               </TextField>
+
+              <TextField
+                select
+                fullWidth
+                label="Perfil Neurodesenvolvimento"
+                name="perfil_neurodesenvolvimento"
+                value={aluno.perfil_neurodesenvolvimento}
+                onChange={handleChange}
+                required
+              >
+                <MenuItem value={PERFIL_NEURODESENVOLVIMENTO.TIPICO}>
+                  {PERFIL_NEURODESENVOLVIMENTO.TIPICO}
+                </MenuItem>
+                <MenuItem value={PERFIL_NEURODESENVOLVIMENTO.ATIPICO}>
+                  {PERFIL_NEURODESENVOLVIMENTO.ATIPICO}
+                </MenuItem>
+              </TextField>
+
+              {aluno.perfil_neurodesenvolvimento === PERFIL_NEURODESENVOLVIMENTO.ATIPICO && (
+                <TextField
+                  select
+                  fullWidth
+                  label="Tipo de Condição"
+                  name="tipo_condicao"
+                  value={aluno.tipo_condicao}
+                  onChange={handleChange}
+                >
+                  {Object.values(TIPO_CONDICAO).map((tipo) => (
+                    <MenuItem value={tipo}>{tipo}</MenuItem>
+                  ))}
+                </TextField>
+              )}
+
+              {aluno.tipo_condicao === "Outro" && (
+                <TextField
+                  fullWidth
+                  label="Descreva a condição"
+                  name="descricao_condicao"
+                  value={aluno.descricao_condicao}
+                  onChange={handleChange}
+                  multiline
+                  minRows={2}
+                />
+              )}
 
               <TextField
                 select

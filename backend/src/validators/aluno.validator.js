@@ -16,6 +16,9 @@ module.exports = {
             faixa_atual: Joi.string().optional(),
             matricula_ativa: Joi.boolean().truthy(1).falsy(0).truthy('true').falsy('false').optional(),
             foto_url: Joi.string().allow(null).optional(),
+            perfil_neurodesenvolvimento: Joi.string().allow('').optional(),
+            tipo_condicao: Joi.string().allow('').optional(),
+            descricao_condicao: Joi.string().allow(null).allow('').optional(),
             data_cadastro: Joi.string().required(),
         }),
         [Segments.HEADERS]: Joi.object().keys({
@@ -45,6 +48,8 @@ module.exports = {
             turma: Joi.string().optional(),
             faixa_atual: Joi.string().optional(),
             data_inicio: Joi.string().optional(),
+            perfil_neurodesenvolvimento: Joi.string().allow('').optional(),
+            tipo_condicao: Joi.string().allow(null).allow('').optional(),
             data_fim: Joi.string().optional(),
         })
         .min(1),
@@ -69,6 +74,9 @@ module.exports = {
             nome_mae_responsavel: Joi.string().optional(),
             turma: Joi.string().optional(),
             faixa_atual: Joi.string().optional(),
+            perfil_neurodesenvolvimento: Joi.string().allow('').optional(),
+            tipo_condicao: Joi.string().allow(null).allow('').optional(),
+            descricao_condicao: Joi.string().allow(null).allow('').optional(),
             matricula_ativa: Joi.boolean().truthy(1).falsy(0).truthy('true').falsy('false').optional(),
             foto_url: Joi.string().allow(null).optional(),
         })
