@@ -78,7 +78,7 @@ function MenuLateral(props){
             position: "top-right",
             autoClose: 3000,
         });
-            navigate('/home');
+            navigate('/');
         } else {
             navigate(pathName)
         }

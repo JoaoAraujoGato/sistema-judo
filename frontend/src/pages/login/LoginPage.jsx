@@ -77,7 +77,7 @@ function LoginPage() {
                     <Button
                         variant="error"
                         className="mt-3 btn-danger"
-                        onClick={() => navigate('/home')}
+                        onClick={() => navigate('/')}
                     >
                         Voltar para Home
                     </Button>
