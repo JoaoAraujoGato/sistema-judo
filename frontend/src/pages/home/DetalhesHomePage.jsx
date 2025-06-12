@@ -51,7 +51,7 @@ export default function Home() {
                 {/* Este container centraliza apenas o texto de boas-vindas */}
                 <Container sx={{ my: 4 }}>
                     <Typography variant="h3" align="center" gutterBottom>
-                    Bem-vindo à Neko Judo
+                    Bem vindo à Neko Judo
                     </Typography>
                     <Typography variant="h6" align="center" gutterBottom>
                     Disciplina, Respeito e Força

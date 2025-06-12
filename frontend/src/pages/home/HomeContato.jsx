@@ -9,13 +9,12 @@ export default function HomeContato() {
         alignItems: "center",
         justifyContent: "center",
         px: 2,
-        py: 6,
         color: "white",
         boxSizing: "border-box",
       }}
     >
       <Container>
-        <Typography variant="h4" gutterBottom align="center" sx={{ mb: 8 }}>
+        <Typography variant="h4" gutterBottom align="center" sx={{ mb: 4 }}>
           Contato
         </Typography>
 

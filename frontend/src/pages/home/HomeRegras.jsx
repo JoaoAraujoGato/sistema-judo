@@ -7,25 +7,25 @@ const regras = [
     titulo: "Respeito ao sensei e colegas",
     descricao:
       "O respeito é um dos pilares do judô. Os praticantes devem sempre cumprimentar seus mestres e companheiros antes e depois das aulas ou lutas, demonstrando humildade, ética e espírito esportivo.",
-    icon: <FaHandsHelping size={40} color="#1976d2" />,
+    icon: <FaHandsHelping size={40} color="#21609e" />,
   },
   {
     titulo: "Disciplina e pontualidade",
     descricao:
       "Chegar no horário, manter o silêncio nas instruções, cuidar do ambiente e seguir as orientações do sensei são atitudes fundamentais para o bom funcionamento da aula e o progresso individual.",
-    icon: <FaClock size={40} color="#1976d2" />,
+    icon: <FaClock size={40} color="#21609e" />,
   },
   {
     titulo: "Uso correto do judogi",
     descricao:
       "O judogi deve estar sempre limpo, ajustado e bem vestido, com a faixa corretamente amarrada. Isso demonstra zelo, organização e respeito ao ambiente de treino.",
-    icon: <GiKimono size={40} color="#1976d2" />,
+    icon: <GiKimono size={40} color="#21609e" />,
   },
   {
     titulo: "Segurança em primeiro lugar",
     descricao:
       "Todas as técnicas devem ser executadas com controle e responsabilidade. É proibido usar força excessiva ou agir de forma perigosa, visando sempre proteger a integridade física de todos.",
-    icon: <FaShieldAlt size={40} color="#1976d2" />,
+    icon: <FaShieldAlt size={40} color="#21609e" />,
   },
 ];
 
