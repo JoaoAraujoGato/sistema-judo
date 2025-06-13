@@ -1,14 +1,13 @@
 import { Box, Typography } from "@mui/material"
 import { FiUser } from "react-icons/fi";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { getAlunosPorGenero, getAlunosPorTurma } from "../../regras_negocio/utils/alunos";
+import { useMemo } from "react";
 
-export function GraficoPorGeneroAlunos(){
+export function GraficoPorGeneroAlunos({alunos}){
     const COLORS = ["#0d00ff", "#eb13e0"];
-    const generoData = [
-        { name: "Masculino", value: 22 },
-        { name: "Feminino", value: 17 },
-    ];
-
+    const generoData = useMemo(() => getAlunosPorGenero(alunos), [alunos]);
+    
     return (
         <>
             <Typography variant="h6" gutterBottom>
@@ -57,17 +56,14 @@ export function GraficoPorGeneroAlunos(){
     )
 };
 
-export function AlunosPorTurma(){
-    const alunosPorTurma = [
-        { turma: "Turma A", quantidade: 12 },
-        { turma: "Turma B", quantidade: 18 },
-        { turma: "Turma C", quantidade: 9 },
-    ];
+export function AlunosPorTurma({alunos}){
+    
+    const alunosPorTurma = useMemo(() => getAlunosPorTurma(alunos) || [],[alunos]);
 
     return (
         <>
             <Typography variant="h6">Alunos por Turma</Typography>
-            {alunosPorTurma.map((item) => (
+            {alunosPorTurma?.map((item) => (
             <Typography key={item.turma} variant="body2">
                 {item.turma}: {item.quantidade}
             </Typography>

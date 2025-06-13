@@ -21,7 +21,7 @@ export default function ListaAlunosPage() {
     const navigate = useNavigate();
     const [alunos, setAlunos] = useState([]);
     
-    const carregarAlunos = useCallback(async () =>  await api.get('/alunos'),[]);
+    const getAlunos = useCallback(async () =>  await api.get('/alunos'),[]);
 
     const handleCadastrarAluno = useCallback(() => {
         navigate(`/aluno/novo`);
@@ -32,17 +32,17 @@ export default function ListaAlunosPage() {
     },[navigate]);
 
     useEffect(() => {
-        async function fetchData() {
+        async function carregarAlunos() {
             try {
-                const { data } = await carregarAlunos();
+                const { data } = await getAlunos();
                 setAlunos(data);
             } catch (error) {
                 console.error("Erro ao carregar alunos:", error);
             }
         };
 
-        fetchData();
-    },[carregarAlunos]);
+        carregarAlunos();
+    },[getAlunos]);
 
     return (
         <Box
