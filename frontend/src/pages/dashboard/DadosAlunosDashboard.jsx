@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import { FiUser } from "react-icons/fi";
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { getAlunosPorGenero, getAlunosPorTurma } from "../../regras_negocio/utils/alunos";
+import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { getAlunosPorGenero, getAlunosPorTurma, getEvolucaoMensalAlunos } from "../../regras_negocio/utils/aluno-helpers";
 import { useMemo } from "react";
 
 export function GraficoPorGeneroAlunos({alunos}){
@@ -68,6 +68,27 @@ export function AlunosPorTurma({alunos}){
                 {item.turma}: {item.quantidade}
             </Typography>
             ))}
+        </>
+    )
+};
+
+export function EvolucaoAlunosCadastrados({alunos}){
+    const evolucaoMensal = useMemo(() => getEvolucaoMensalAlunos(alunos),[alunos]);
+
+    return (
+        <>
+            <Typography variant="h6" gutterBottom>
+                Evolução Mensal de Alunos
+            </Typography>
+            <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={evolucaoMensal}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="mes" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="alunos" fill="#8884d8" />
+                </BarChart>
+            </ResponsiveContainer>
         </>
     )
 }

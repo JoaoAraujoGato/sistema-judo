@@ -21,7 +21,7 @@ export default function ListaEventosPage() {
     const navigate = useNavigate();
     const [eventos, setEventos] = useState([]);
     
-    const carregarEventos = useCallback(async () =>  await api.get('/eventos'),[]);
+    const getEventos = useCallback(async () =>  await api.get('/eventos'),[]);
 
     const handleCadastrarEvento = useCallback(() => {
         navigate(`/evento/novo`);
@@ -32,17 +32,17 @@ export default function ListaEventosPage() {
     },[navigate]);
 
     useEffect(() => {
-        async function fetchData() {
+        async function carregarEventos() {
             try {
-                const { data } = await carregarEventos();
+                const { data } = await getEventos();
                 setEventos(data);
             } catch (error) {
                 console.error("Erro ao carregar eventos:", error);
             }
         };
 
-        fetchData();
-    },[carregarEventos]);
+        carregarEventos();
+    },[getEventos]);
 
     return (
         <Box

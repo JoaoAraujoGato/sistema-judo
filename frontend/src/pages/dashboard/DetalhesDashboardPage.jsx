@@ -4,16 +4,7 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import {
-  Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from "recharts";
-import { AlunosPorTurma, GraficoPorGeneroAlunos } from "./DadosAlunosDashboard";
+import { AlunosPorTurma, EvolucaoAlunosCadastrados, GraficoPorGeneroAlunos } from "./DadosAlunosDashboard";
 import { TreinosDaSemana } from "./DadosTreinosDashboard";
 import { ProximosEventos } from "./DadosEventosDashboard";
 import { useCallback, useEffect, useState } from "react";
@@ -22,19 +13,12 @@ import api from "../../services/api";
 const mensalidadesAtrasadas = 5;
 const presencasUltimoTreino = 28;
 
-const evolucaoMensal = [
-  { mes: "Jan", alunos: 4 },
-  { mes: "Fev", alunos: 8 },
-  { mes: "Mar", alunos: 12 },
-  { mes: "Abr", alunos: 10 },
-  { mes: "Mai", alunos: 15 },
-  { mes: "Jun", alunos: 9 },
-];
-
 function DetalhesDashboardPage() {
     const [alunos, setAlunos] = useState([]);
+    const [eventos, setEventos] = useState([]);
     
     const getAlunos = useCallback(async () =>  await api.get('/alunos'),[]);
+    const getEventos = useCallback(async () =>  await api.get('/eventos'),[]);
 
     useEffect(() => {
         async function carregarAlunos() {
@@ -48,6 +32,19 @@ function DetalhesDashboardPage() {
 
         carregarAlunos();
     },[getAlunos]);
+
+    useEffect(() => {
+        async function carregarEventos() {
+            try {
+                const { data } = await getEventos();
+                setEventos(data);
+            } catch (error) {
+                console.error("Erro ao carregar eventos:", error);
+            }
+        };
+
+        carregarEventos();
+    },[getEventos]);
 
     return (
         <Box 
@@ -137,23 +134,12 @@ function DetalhesDashboardPage() {
                     {/* Card: Evolução Mensal */}
                     <Card>
                         <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                Evolução Mensal de Alunos
-                            </Typography>
-                            <ResponsiveContainer width="100%" height={200}>
-                                <BarChart data={evolucaoMensal}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="mes" />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Bar dataKey="alunos" fill="#8884d8" />
-                                </BarChart>
-                            </ResponsiveContainer>
+                            <EvolucaoAlunosCadastrados alunos={alunos} />
                         </CardContent>
                     </Card>
 
                     {/* Card: Próximos Eventos */}
-                    <ProximosEventos />
+                    <ProximosEventos eventos={eventos}/>
                 </Box>
             </Box>
 

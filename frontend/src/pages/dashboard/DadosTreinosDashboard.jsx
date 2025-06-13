@@ -16,7 +16,7 @@ export function TreinosDaSemana(){
         <Box sx={{ flex: 1, minWidth: 300 }}>
             <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <CardContent>
-                    <Typography variant="h6">Treinos do Dia</Typography>
+                    <Typography variant="h6">Treinos da semana</Typography>
                     <List>
                         {treinosDoDia.map((treino, index) => (
                             <ListItem key={index}>
