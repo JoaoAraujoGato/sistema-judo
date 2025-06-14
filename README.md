@@ -69,3 +69,19 @@ Para adicionar um icone do fontawsome, podemos fazer da seguinte maneira ([docum
   <i class="fa-solid fa-user"></i>
 ~~~
 que resulta em: <i class="fa-solid fa-user"></i>
+
+✅ Boas práticas com workspaces
+
+Sempre use npm install --workspace nome para manter organizado.
+
+Evite rodar npm install dentro dos subdiretórios.
+
+Evite manter múltiplos node_modules separados — o ideal é que o node_modules fique na raiz, controlado centralmente.
+
+Para instalar uma biblioteca só para o frontend ou backend, fazer:
+
+~~~
+npm install nome-da-biblioteca --workspace frontend
+npm install nome-da-lib --workspace backend
+
+~~~
