@@ -58,56 +58,51 @@ export default function HomeRegras() {
         </Typography>
         <Box
           sx={{
-            flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 16px)" },
-            maxWidth: 500,
-            minWidth: 260,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: 3,
           }}
         >
-
           {regras.map((regra, index) => (
-            <Box
+            <Card
               key={index}
               sx={{
-                flex: { xs: "1 1 100%", sm: "1 1 45%" },
-                maxWidth: 500,
-                minWidth: 280,
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 2,
+                p: { xs: 2, sm: 3 },
+                width: { xs: "100%", sm: "45%", md: "40%" },
+                boxShadow: 3,
+                backgroundColor: "#fff",
+                color: "#000",
               }}
             >
-              <Card
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 2,
-                  p: { xs: 2, sm: 3 },
-                  height: "100%",
-                  boxShadow: 3,
-                  backgroundColor: "#fff",
-                  color: "#000",
-                }}
-              >
-
-                <Avatar sx={{ bgcolor: "white", width: 56, height: 56 }}>
-                  {regra.icon}
-                </Avatar>
-                <CardContent sx={{ padding: 0 }}>
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }, fontWeight: 600 }}
-                  >
-                    {regra.titulo}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontSize: { xs: "0.9rem", sm: "1rem" }, lineHeight: 1.6 }}
-                  >
-                    {regra.descricao}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Box>
+              <Avatar sx={{ bgcolor: "white", width: 56, height: 56 }}>
+                {regra.icon}
+              </Avatar>
+              <CardContent sx={{ padding: 0 }}>
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  sx={{
+                    fontSize: { xs: "1rem", sm: "1.2rem" },
+                    fontWeight: 600,
+                  }}
+                >
+                  {regra.titulo}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ fontSize: { xs: "0.9rem", sm: "1rem" }, lineHeight: 1.6 }}
+                >
+                  {regra.descricao}
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
         </Box>
+
       </Container>
     </Box>
   );
