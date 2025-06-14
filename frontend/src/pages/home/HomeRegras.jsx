@@ -44,17 +44,26 @@ export default function HomeRegras() {
       }}
     >
       <Container>
-        <Typography variant="h4" gutterBottom align="center" sx={{ mb: 8 }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          align="center"
+          sx={{
+            mb: 6,
+            fontSize: { xs: "1.8rem", sm: "2rem", md: "2.5rem" },
+            fontWeight: "bold",
+          }}
+        >
           Regras e Princípios
         </Typography>
-
         <Box
-          display="flex"
-          flexWrap="wrap"
-          justifyContent="center"
-          gap={4}
-          mt={4}
+          sx={{
+            flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 16px)" },
+            maxWidth: 500,
+            minWidth: 260,
+          }}
         >
+
           {regras.map((regra, index) => (
             <Box
               key={index}
@@ -69,19 +78,31 @@ export default function HomeRegras() {
                   display: "flex",
                   alignItems: "flex-start",
                   gap: 2,
-                  p: 2,
+                  p: { xs: 2, sm: 3 },
                   height: "100%",
                   boxShadow: 3,
+                  backgroundColor: "#fff",
+                  color: "#000",
                 }}
               >
+
                 <Avatar sx={{ bgcolor: "white", width: 56, height: 56 }}>
                   {regra.icon}
                 </Avatar>
                 <CardContent sx={{ padding: 0 }}>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    sx={{ fontSize: { xs: "1rem", sm: "1.2rem" }, fontWeight: 600 }}
+                  >
                     {regra.titulo}
                   </Typography>
-                  <Typography variant="body2">{regra.descricao}</Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontSize: { xs: "0.9rem", sm: "1rem" }, lineHeight: 1.6 }}
+                  >
+                    {regra.descricao}
+                  </Typography>
                 </CardContent>
               </Card>
             </Box>

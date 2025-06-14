@@ -83,5 +83,4 @@ Para instalar uma biblioteca só para o frontend ou backend, fazer:
 ~~~
 npm install nome-da-biblioteca --workspace frontend
 npm install nome-da-lib --workspace backend
-
 ~~~
