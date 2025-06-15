@@ -69,7 +69,7 @@ export default function Home() {
               fontWeight: "bold",
             }}
           >
-            Bem vindo à Neko Judo
+            Neko Judo
           </Typography>
 
           <Typography

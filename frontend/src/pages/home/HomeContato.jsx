@@ -21,7 +21,7 @@ export default function HomeContato() {
           align="center"
           sx={{ mb: { xs: 3, md: 4 }, fontWeight: "bold", fontSize: { xs: "1.8rem", md: "2.5rem" } }}
         >
-          Contato
+          CONTATO
         </Typography>
 
         <Box

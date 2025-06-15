@@ -12,7 +12,7 @@ export default function HomeHistoria() {
         boxSizing: "border-box",
       }}
     >
-      <Container maxWidth="md">
+      <Container maxWidth="lg"> {/* usei lg pra container ficar maior */}
         <Typography
           variant="h4"
           gutterBottom
@@ -23,7 +23,7 @@ export default function HomeHistoria() {
             fontWeight: "bold",
           }}
         >
-          História do Judô
+          HISTÓRIA DO JUDÔ
         </Typography>
 
         <Box
@@ -34,16 +34,24 @@ export default function HomeHistoria() {
           gap={4}
         >
           {/* Imagem à esquerda */}
-          <Box flex={1} textAlign="center">
+          <Box
+            flex={{ xs: "none", md: 1.5 }}  // imagem maior no desktop
+            textAlign="center"
+          >
             <img
               src="/images/jigoroKano.png"
               alt="Jigoro Kano"
-              style={{ maxWidth: "100%", height: "auto", borderRadius: 8, maxHeight: 400}}
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+                borderRadius: 8,
+                maxHeight: { xs: 300, md: 500 }, // maior altura no desktop
+              }}
             />
           </Box>
 
           {/* Texto à direita */}
-          <Box flex={1}>
+          <Box flex={{ xs: "none", md: 2 }}> {/* texto mais largo no desktop */}
             <Typography sx={{ fontSize: { xs: "0.95rem", sm: "1rem" }, mb: 2 }}>
               O judô é uma arte marcial japonesa criada em 1882 por Jigoro Kano, um educador que buscava desenvolver uma disciplina baseada não apenas na eficácia do combate, mas também na formação física, mental e moral dos praticantes. Inspirado nas técnicas do jiu-jitsu dos samurais, Kano eliminou os movimentos mais perigosos e introduziu princípios que valorizam a eficiência máxima com o mínimo de esforço (Seiryoku Zenyo) e o benefício mútuo (Jita Kyoei).
             </Typography>

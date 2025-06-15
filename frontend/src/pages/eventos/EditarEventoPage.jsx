@@ -4,7 +4,8 @@ import {
   TextField,
   Typography,
   Grid,
-  Paper
+  Paper,
+  Stack
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -112,16 +113,29 @@ export default function EditarEventoPage() {
               <TextField fullWidth label="Observação" name="observacao" value={evento.observacao} onChange={handleChange} />
             </Grid>
 
-          <Box mt={4} display="flex" justifyContent="flex-end" gap={2}>
-            <Button variant="outlined" onClick={() => {
-                if(eventoId) navigate(`/evento/${eventoId}`)
-                navigate('/eventos')}}>
+          <Stack
+            mt={4}
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+            justifyContent="flex-end"
+          >
+            <Button
+              variant="outlined"
+              onClick={() => {
+                if (eventoId) {
+                  navigate(`/evento/${eventoId}`);
+                } else {
+                  navigate("/eventos");
+                }
+              }}
+              fullWidth={true}
+            >
               Cancelar
             </Button>
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" fullWidth={true}>
               Salvar Alterações
             </Button>
-          </Box>
+          </Stack>
         </form>
       </Paper>
     </Box>

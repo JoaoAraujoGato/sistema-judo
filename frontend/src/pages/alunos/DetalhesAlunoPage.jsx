@@ -15,6 +15,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
@@ -25,22 +27,21 @@ import { classificarIdade, classificarPeso } from "../../regras_negocio/utils/ca
 import { FaArrowLeft, FaEdit, FaTrash } from 'react-icons/fa';
 import { TIPO_CONDICAO } from "../../regras_negocio/constants/aluno";
 
-
 export default function DetalhesAlunoPage() {
     const navigate = useNavigate();
     const { id: alunoId } = useParams();
-    
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
     const [aluno, setAluno] = useState(null);
     const [modalAberto, setModalAberto] = useState(false);
-    const [trocasFaixa] = useState([]);
+    const [trocasFaixa] = useState([]); // Essa parte ainda vai ser implementada
 
-    const idadeAluno = useMemo(() => calcularIdade(aluno?.data_nascimento),[aluno]);
-    const classificacaoIdade = useMemo(() => classificarIdade(idadeAluno),[idadeAluno]);
-    const classificacaoPeso = useMemo(() => classificarPeso(aluno?.peso, aluno?.sexo, classificacaoIdade.classe),[aluno, classificacaoIdade]);
+    const idadeAluno = useMemo(() => calcularIdade(aluno?.data_nascimento), [aluno]);
+    const classificacaoIdade = useMemo(() => classificarIdade(idadeAluno), [idadeAluno]);
+    const classificacaoPeso = useMemo(() => classificarPeso(aluno?.peso, aluno?.sexo, classificacaoIdade.classe), [aluno, classificacaoIdade]);
 
-    const confirmarExclusao = () => {
-        setModalAberto(true);
-    };
+    const confirmarExclusao = () => setModalAberto(true);
 
     const excluirAluno = async () => {
         try {
@@ -53,25 +54,22 @@ export default function DetalhesAlunoPage() {
             setModalAberto(false);
         }
     };
-  
+
     const handleEditar = () => navigate(`/aluno/${alunoId}/editar`);
-  
+
     useEffect(() => {
-      async function carregarDados() {
-        try {
-          const { data } = await api.get(`/aluno/${alunoId}`);
-          setAluno(data);
-  
-          // const trocas = await api.get(`/alunos/${id}/trocas-faixa`); Tem que filtrar depois certin
-          // setTrocasFaixa(trocas.data);
-        } catch (error) {
-          toast.error("Erro ao carregar dados do aluno.");
+        async function carregarDados() {
+            try {
+                const { data } = await api.get(`/aluno/${alunoId}`);
+                setAluno(data);
+            } catch (error) {
+                toast.error("Erro ao carregar dados do aluno.");
+            }
         }
-      }
-  
-      carregarDados();
+
+        carregarDados();
     }, [alunoId]);
-    
+
     if (!aluno) return null;
 
     return (
@@ -88,13 +86,7 @@ export default function DetalhesAlunoPage() {
             }}
         >
             <Box maxWidth="md" width="100%" p={4}>
-                <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    mb={3}
-                >
-                    {/* Parte esquerda: Ícone de voltar + título */}
+                <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} flexWrap="wrap" gap={2}>
                     <Box display="flex" alignItems="center" gap={1}>
                         <Button
                             onClick={() => navigate('/alunos')}
@@ -106,7 +98,6 @@ export default function DetalhesAlunoPage() {
                         </Typography>
                     </Box>
 
-                    {/* Parte direita: Botões */}
                     <Box display="flex" gap={2}>
                         <Button
                             variant="contained"
@@ -137,7 +128,7 @@ export default function DetalhesAlunoPage() {
                             <Typography><strong>Turma:</strong> {aluno.turma}</Typography>
                             <Typography><strong>Idade:</strong> {idadeAluno} anos ({classificacaoIdade.label})</Typography>
                             <Typography><strong>Peso:</strong> {aluno?.peso ? `${aluno?.peso} kg (${classificacaoPeso})` : '-'}</Typography>
-                            <Typography><strong>Perfil Neurodesenvolvimento:</strong> {aluno?.perfil_neurodesenvolvimento} </Typography>
+                            <Typography><strong>Matrícula Ativa:</strong> {aluno.matricula_ativa ? "Sim" : "Não"}</Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Typography><strong>Email:</strong> {aluno.email}</Typography>
@@ -146,12 +137,14 @@ export default function DetalhesAlunoPage() {
                             <Typography><strong>Nome da Mãe:</strong> {aluno.nome_mae_responsavel}</Typography>
                             <Typography><strong>Faixa Atual:</strong> {aluno.faixa_atual}</Typography>
                             <Typography><strong>Data de Cadastro:</strong> {formatarData(aluno.data_cadastro)}</Typography>
-                            <Typography><strong>Matrícula Ativa:</strong> {aluno.matricula_ativa ? "Sim" : "Não"}</Typography>
+                            <Typography><strong>Perfil Neurodesenvolvimento:</strong> {aluno?.perfil_neurodesenvolvimento}</Typography>
                             <Typography><strong>Tipo de Condição:</strong> {aluno.tipo_condicao === TIPO_CONDICAO.OUTRO ? aluno.descricao_condicao : aluno.tipo_condicao}</Typography>
                         </Grid>
                     </Grid>
                 </Paper>
+
                 <Divider />
+
                 <Typography variant="h6" fontWeight="bold" mt={4} mb={2}>
                     Histórico de Trocas de Faixa
                 </Typography>
@@ -159,27 +152,29 @@ export default function DetalhesAlunoPage() {
                 {trocasFaixa.length === 0 ? (
                     <Typography>Nenhuma troca de faixa registrada.</Typography>
                 ) : (
-                    <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Data</TableCell>
-                            <TableCell>Faixa Anterior</TableCell>
-                            <TableCell>Nova Faixa</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {trocasFaixa.map((troca) => (
-                        <TableRow key={troca.id}>
-                            <TableCell>{troca.data_troca}</TableCell>
-                            <TableCell>{troca.faixa_anterior}</TableCell>
-                            <TableCell>{troca.nova_faixa}</TableCell>
-                        </TableRow>
-                        ))}
-                    </TableBody>
-                    </Table>
+                    <Box sx={{ overflowX: isMobile ? "auto" : "unset" }}>
+                        <Table sx={{ minWidth: isMobile ? 600 : "auto" }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Data</TableCell>
+                                    <TableCell>Faixa Anterior</TableCell>
+                                    <TableCell>Nova Faixa</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {trocasFaixa.map((troca) => (
+                                    <TableRow key={troca.id}>
+                                        <TableCell>{troca.data_troca}</TableCell>
+                                        <TableCell>{troca.faixa_anterior}</TableCell>
+                                        <TableCell>{troca.nova_faixa}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </Box>
                 )}
             </Box>
-            {/* Modal de confirmação */}
+
             <Dialog open={modalAberto} onClose={() => setModalAberto(false)}>
                 <DialogTitle>Confirmar Exclusão</DialogTitle>
                 <DialogContent>
@@ -196,7 +191,6 @@ export default function DetalhesAlunoPage() {
                     </Button>
                 </DialogActions>
             </Dialog>
-
         </Box>
     );
 }

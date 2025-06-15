@@ -28,56 +28,54 @@ const DetalhesTreinosPage = () => {
 
   const carregarTreinos = async () => {
     try {
-        const response = await api.get('/treinos');
-        const treinosFormatados = response.data.map((treino) => {
+      const response = await api.get('/treinos');
+      const treinosFormatados = response.data.map((treino) => {
         const start = `${treino.data}T${treino.horario}`;
         const duracaoEmMinutos = parseInt(treino.duracao, 10);
         const startDate = new Date(start);
         const endDate = new Date(startDate.getTime() + duracaoEmMinutos * 60000);
 
         return {
-            id: treino.id,
-            title: `${treino.turma} - ${treino.duracao} min`,
-            start: start, // necessário para horário no calendário
-            end: endDate.toISOString(),
-            allDay: false,
-            extendedProps: {
+          id: treino.id,
+          title: `${treino.turma} - ${treino.duracao} min`,
+          start: start, // necessário para horário no calendário
+          end: endDate.toISOString(),
+          allDay: false,
+          extendedProps: {
             description: treino.descricao,
             horario: treino.horario,
             turma: treino.turma,
             duracao: treino.duracao
-            }
+          }
         };
-        });
+      });
 
-        setTreinos(treinosFormatados);
+      setTreinos(treinosFormatados);
     } catch (error) {
-        console.error('Erro ao carregar treinos:', error);
+      console.error('Erro ao carregar treinos:', error);
     }
-    };
-
+  };
 
   useEffect(() => {
     carregarTreinos();
   }, []);
 
-    const handleEventClick = ({ event }) => {
-        const fullDate = event.startStr; // Exemplo: "2025-06-04T10:30:00Z"
-        const dateOnly = fullDate.split('T')[0]; // Pega só a parte antes do 'T'
+  const handleEventClick = ({ event }) => {
+    const fullDate = event.startStr; // Exemplo: "2025-06-04T10:30:00Z"
+    const dateOnly = fullDate.split('T')[0]; // Pega só a parte antes do 'T'
 
-        setSelectedEvent({
-            id: event.id,
-            title: event.title,
-            description: event.extendedProps.description,
-            date: dateOnly,       // aqui só a data YYYY-MM-DD
-            horario: event.extendedProps.horario,
-            turma: event.extendedProps.turma,
-            duracao: event.extendedProps.duracao
-        });
-        setEditMode(false);
-        setOpenDetailModal(true);
-    };
-
+    setSelectedEvent({
+      id: event.id,
+      title: event.title,
+      description: event.extendedProps.description,
+      date: dateOnly,       // aqui só a data YYYY-MM-DD
+      horario: event.extendedProps.horario,
+      turma: event.extendedProps.turma,
+      duracao: event.extendedProps.duracao
+    });
+    setEditMode(false);
+    setOpenDetailModal(true);
+  };
 
   const handleCreateEvent = async () => {
     if (!duracao || !turma || !data || !horario) {
@@ -129,14 +127,14 @@ const DetalhesTreinosPage = () => {
 
   return (
     <Box
-        p={3}
-        minHeight="100vh"
-        sx={{
-            backgroundImage: `url("/images/FundoDeTelaJudoCinza.png")`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-        }}
+      p={3}
+      minHeight="100vh"
+      sx={{
+        backgroundImage: `url("/images/FundoDeTelaJudoCinza.png")`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
     >
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h4">Treinos</Typography>
@@ -149,19 +147,81 @@ const DetalhesTreinosPage = () => {
         </Button>
       </Box>
 
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        locale={ptBrLocale}
-        events={treinos}
-        eventClick={handleEventClick}
-        height="auto"
-        headerToolbar={{
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      <Box
+        sx={{
+          '& .fc-header-toolbar': {
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '4px',
+          },
+          '& .fc-toolbar-title': {
+            fontSize: '1.25rem',
+            fontWeight: 600,
+            textAlign: 'center',
+          },
+          '& .fc-toolbar-chunk': {
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '0.25em',
+          },
+          '@media (max-width: 600px)': {
+            '& .fc-button': {
+              fontSize: '0.8rem',
+              padding: '0.4em 0.6em',
+              minWidth: '2.5em',
+              height: '2.5em',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              lineHeight: 1.2,
+            },
+            '& .fc-button.fc-button-primary': {
+              fontSize: '0.6rem',
+              padding: '0.25em 0.4em',
+              minWidth: '2.5em',
+              height: '2.5em',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              lineHeight: 1,
+            },
+            '& .fc-prev-button, & .fc-next-button': {
+              fontSize: '0.8rem',
+              width: '2.5em',
+              height: '2.5em',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+            '& .fc-today-button': {
+              fontSize: '0.7rem',
+              padding: '0.3em 0.5em',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+            '& .fc-toolbar-title': {
+              fontSize: '2rem',
+            }
+          }
         }}
-      />
+      >
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
+          initialView="dayGridMonth"
+          locale={ptBrLocale}
+          events={treinos}
+          eventClick={handleEventClick}
+          height="auto"
+          headerToolbar={{
+            start: 'prev,next today dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+            center: 'title',
+            end: ''
+          }}
+          titleFormat={{ year: 'numeric', month: 'long' }}
+        />
+      </Box>
 
       {/* Modal de Detalhes / Edição */}
       <Modal open={openDetailModal} onClose={() => setOpenDetailModal(false)}>
@@ -186,7 +246,7 @@ const DetalhesTreinosPage = () => {
                 }
                 InputLabelProps={{ shrink: true }}
               />
-              
+
               <TextField
                 label="Duração (minutos)"
                 type="number"
@@ -241,13 +301,13 @@ const DetalhesTreinosPage = () => {
               <Typography><b>Duração:</b> {selectedEvent?.duracao} minutos</Typography>
               <Typography><b>Turma:</b> {selectedEvent?.turma}</Typography>
               <Typography><b>Descrição:</b></Typography>
-                <Box component="ul" sx={{ pl: 2 }}>
-                    {selectedEvent?.description?.split('\n').map((item, index) => (
-                        <li key={index}>
-                        <Typography variant="body2">{item.replace(/^-+/, '').trim()}</Typography>
-                        </li>
-                    ))}
-                </Box>
+              <Box component="ul" sx={{ pl: 2 }}>
+                {selectedEvent?.description?.split('\n').map((item, index) => (
+                  <li key={index}>
+                    <Typography variant="body2">{item.replace(/^-+/, '').trim()}</Typography>
+                  </li>
+                ))}
+              </Box>
               <Button variant="outlined" onClick={() => setEditMode(true)}>
                 Editar
               </Button>

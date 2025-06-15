@@ -1,144 +1,143 @@
-import { Box, Drawer, Toolbar, List, Divider, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import {
+    Box,
+    Drawer,
+    Toolbar,
+    List,
+    Divider,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+    IconButton,
+    useMediaQuery,
+    useTheme,
+} from '@mui/material';
 import { toast } from 'react-toastify';
 
 import {
-    FaChartBar,
-    FaUserAlt,
-    FaMoneyBillWave,
-    FaDumbbell,
-    FaCheckSquare,
-    FaCalendarAlt,
-    FaImages,
-    FaCog
+    FaChartBar, FaUserAlt, FaMoneyBillWave, FaDumbbell, FaCheckSquare,
+    FaCalendarAlt, FaImages, FaCog
 } from 'react-icons/fa';
-
-import { useCallback } from 'react';
-import { IconContext } from 'react-icons/lib';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { GiBlackBelt } from 'react-icons/gi';
 import { CiLogout } from "react-icons/ci";
+import MenuIcon from '@mui/icons-material/Menu';
+
+import { useCallback, useState } from 'react';
+import { IconContext } from 'react-icons';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../services/auth';
 
-
 const drawerWidth = 200;
+
 const paginasNavegacao = [
-    {
-        icon: <FaChartBar  />,
-        texto: 'Dashboard',
-        path: '/dashboard',
-    },{
-        icon: <FaUserAlt />,
-        texto: 'Alunos',
-        path: '/alunos',
-    },{
-        icon: <FaMoneyBillWave />,
-        texto: 'Mensalidades',
-        path: '/mensalidades',
-    },{
-        icon: <FaDumbbell />,
-        texto: 'Treinos',
-        path: '/treinos',
-    },{
-        icon: <FaCheckSquare />,
-        texto: 'Presenças',
-        path: '/presencas',
-    },{
-        icon: <GiBlackBelt />,
-        texto: 'Professores',
-        path: '/senseis',
-    },{
-        icon: <FaCalendarAlt />,
-        texto: 'Eventos',
-        path: '/eventos',
-    },{
-        icon: <FaImages />,
-        texto: 'Galeria',
-        path: '/galeria_admin',
-    },{
-        icon: <FaCog />,
-        texto: 'Configurações',
-        path: '/configuracoes',
-    },{
-        icon: <CiLogout />,
-        texto: 'Sair',
-        path: '/logout',
-    },
+    { icon: <FaChartBar />, texto: 'Dashboard', path: '/dashboard' },
+    { icon: <FaUserAlt />, texto: 'Alunos', path: '/alunos' },
+    { icon: <FaMoneyBillWave />, texto: 'Mensalidades', path: '/mensalidades' },
+    { icon: <FaDumbbell />, texto: 'Treinos', path: '/treinos' },
+    { icon: <FaCheckSquare />, texto: 'Presenças', path: '/presencas' },
+    { icon: <GiBlackBelt />, texto: 'Professores', path: '/senseis' },
+    { icon: <FaCalendarAlt />, texto: 'Eventos', path: '/eventos' },
+    { icon: <FaImages />, texto: 'Galeria', path: '/galeria_admin' },
+    { icon: <FaCog />, texto: 'Configurações', path: '/configuracoes' },
+    { icon: <CiLogout />, texto: 'Sair', path: '/logout' },
 ];
 
-function MenuLateral(props){
+function MenuLateral(props) {
     const navigate = useNavigate();
-    // O location não está fazendo nada já que o selected nao ta funfando, mas vou deixar para lembrar depois como pega o path
     const location = useLocation();
     const { signOutUser } = useAuth();
 
-    const handleClik = useCallback((pathName) => {
-        if(pathName === '/logout'){
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md')); // md = 960px
+
+    const toggleDrawer = () => {
+        setMobileOpen(!mobileOpen);
+    };
+
+    const handleClick = useCallback((pathName) => {
+        if (pathName === '/logout') {
             signOutUser();
             toast.info("Até logo! Você saiu com sucesso 👋", {
-            position: "top-right",
-            autoClose: 3000,
-        });
+                position: "top-right",
+                autoClose: 3000,
+            });
             navigate('/');
         } else {
-            navigate(pathName)
+            navigate(pathName);
         }
-    },[navigate, signOutUser]);
+        if (isMobile) setMobileOpen(false); // fecha o drawer no mobile
+    }, [navigate, signOutUser, isMobile]);
+
+    const drawerContent = (
+        <>
+            <Toolbar sx={{ color: 'white' }}>
+                <Box display="flex" alignItems="center" sx={{ marginTop: '12px' }}>
+                    <img
+                        src="/images/LogoNekoJudoSemFundo.png"
+                        alt="logo"
+                        style={{ width: '60px', height: '60px' }}
+                    />
+                    <h6 style={{ margin: 0 }}>Neko Judo</h6>
+                </Box>
+            </Toolbar>
+            <Divider />
+            <List>
+                {paginasNavegacao.map(({ icon, texto, path }) => (
+                    <ListItem key={texto} selected={location.pathname === path} disablePadding onClick={() => handleClick(path)}>
+                        <ListItemButton>
+                            <Box mr={2}>
+                                <IconContext.Provider value={{ size: "1.3em", color: '#ffffff' }}>
+                                    {icon}
+                                </IconContext.Provider>
+                            </Box>
+                            <ListItemText primary={texto} sx={{ color: 'white' }} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </>
+    );
 
     return (
         <>
+            {/* Botão de menu apenas no mobile */}
+            {isMobile && (
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={toggleDrawer}
+                    sx={{ position: 'fixed', top: 8, left: 8, zIndex: 1300 }}
+                >
+                    <MenuIcon />
+                </IconButton>
+            )}
+
+            {/* Drawer responsivo */}
             <Drawer
+                variant={isMobile ? "temporary" : "permanent"}
+                open={isMobile ? mobileOpen : true}
+                onClose={toggleDrawer}
+                ModalProps={{ keepMounted: true }}
                 sx={{
-                width: drawerWidth,
-                flexShrink: 0,
-                '& .MuiDrawer-paper': {
                     width: drawerWidth,
-                    boxSizing: 'border-box',
-                    backgroundColor: '#001f3f', // azul-marinho
-                },
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        width: drawerWidth,
+                        boxSizing: 'border-box',
+                        backgroundColor: '#001f3f',
+                    },
                 }}
-                variant="permanent"
-                anchor="left"
             >
-                <Toolbar sx={{ color: 'white' }}>
-                    <Box display="flex" alignItems="center" sx={{ marginTop: '12px'}}>
-                        <img
-                            src="/images/LogoNekoJudoSemFundo.png"
-                            alt="logo"
-                            style={{
-                                width: '60px',
-                                height: '60px',
-                            }}
-                        />
-                        <h6 style={{ margin: 0 }}>Neko Judo</h6>
-                    </Box>
-                </Toolbar>
-                <Divider />
-                <List>
-                {paginasNavegacao.map(({icon, texto, path}, index) => (
-                    <ListItem key={texto} selected={location.pathname === path} disablePadding onClick={() => handleClik(path)}>
-                    <ListItemButton>
-                        <Box mr={2}>
-                            <IconContext.Provider
-                                value={{
-                                    size: "1.3em",
-                                    color: '#ffffff',
-                                }}
-                            >
-                                {icon}
-                            </IconContext.Provider>
-                        </Box>
-                        <ListItemText primary={texto} sx={{ color: 'white' }}/>
-                    </ListItemButton>
-                    </ListItem>
-                ))}
-                </List>
+                {drawerContent}
             </Drawer>
-            {/* Aqui fica o conteúdo da página, com margem lateral */}
-            <Box component="main" sx={{ marginLeft: `${drawerWidth}px` }}>
+
+            {/* Conteúdo principal */}
+            <Box component="main" sx={{ marginLeft: isMobile ? 0 : `${drawerWidth}px` }}>
                 {props.children}
             </Box>
         </>
-  );
+    );
 }
 
 export default MenuLateral;

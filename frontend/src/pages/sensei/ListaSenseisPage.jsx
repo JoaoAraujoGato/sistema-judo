@@ -85,17 +85,29 @@ export default function ListaSenseisPage() {
                 backgroundPosition: "center",
             }}
         >
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-                <Typography variant="h5" fontWeight="bold">
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                mb={3}
+                flexDirection={{ xs: 'column', sm: 'row' }}
+                gap={2}
+                >
+                <Typography variant="h5" fontWeight="bold" textAlign={{ xs: 'center', sm: 'left' }}>
                     Professores Cadastrados
                 </Typography>
-                <Button variant="contained" color="primary" onClick={() => handleCadastrarProfessor()}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleCadastrarProfessor()}
+                    sx={{ width: { xs: '100%', sm: 'auto' } }}
+                >
                     + Cadastrar Professor
                 </Button>
             </Box>
 
-            <TableContainer component={Paper}>
-                <Table>
+            <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
+                <Table sx={{ minWidth: 600 }}>
                 <TableHead>
                     <TableRow>
                     <TableCell>Nome</TableCell>

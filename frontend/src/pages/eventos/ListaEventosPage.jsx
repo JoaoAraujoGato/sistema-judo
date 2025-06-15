@@ -10,6 +10,8 @@ import {
   TableHead,
   TableRow,
   Paper,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { FaSearchPlus } from "react-icons/fa";
 import api from '../../services/api';
@@ -18,78 +20,109 @@ import { useNavigate } from 'react-router-dom';
 import { formatarData } from '../../regras_negocio/utils/data-helpers';
 
 export default function ListaEventosPage() {
-    const navigate = useNavigate();
-    const [eventos, setEventos] = useState([]);
-    
-    const getEventos = useCallback(async () =>  await api.get('/eventos'),[]);
+  const navigate = useNavigate();
+  const [eventos, setEventos] = useState([]);
 
-    const handleCadastrarEvento = useCallback(() => {
-        navigate(`/evento/novo`);
-    },[navigate]);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const handleDetalhes = useCallback((id) => {
-        navigate(`/evento/${id}`);
-    },[navigate]);
+  const getEventos = useCallback(async () => await api.get('/eventos'), []);
 
-    useEffect(() => {
-        async function carregarEventos() {
-            try {
-                const { data } = await getEventos();
-                setEventos(data);
-            } catch (error) {
-                console.error("Erro ao carregar eventos:", error);
-            }
-        };
+  const handleCadastrarEvento = useCallback(() => {
+    navigate(`/evento/novo`);
+  }, [navigate]);
 
-        carregarEventos();
-    },[getEventos]);
+  const handleDetalhes = useCallback((id) => {
+    navigate(`/evento/${id}`);
+  }, [navigate]);
 
-    return (
-        <Box
-            p={4}
-            minHeight="100vh"
-            sx={{
-                backgroundImage: `url("/images/FundoDeTelaJudoCinza.png")`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-            }}
+  useEffect(() => {
+    async function carregarEventos() {
+      try {
+        const { data } = await getEventos();
+        setEventos(data);
+      } catch (error) {
+        console.error("Erro ao carregar eventos:", error);
+      }
+    }
+
+    carregarEventos();
+  }, [getEventos]);
+
+  return (
+    <Box
+      px={{ xs: 2, sm: 4 }}
+      py={4}
+      minHeight="100vh"
+      sx={{
+        backgroundImage: `url("/images/FundoDeTelaJudoCinza.png")`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
+    >
+      <Box
+        display="flex"
+        flexDirection={{ xs: 'column', sm: 'row' }}
+        justifyContent="space-between"
+        alignItems={{ xs: 'flex-start', sm: 'center' }}
+        mb={3}
+        gap={2}
+      >
+        <Typography
+          variant="h5"
+          fontWeight="bold"
+          textAlign={{ xs: 'center', sm: 'left' }}
+          width="100%"
         >
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-                <Typography variant="h5" fontWeight="bold">
-                    Eventos Cadastrados
-                </Typography>
-                <Button variant="contained" color="primary" onClick={() => handleCadastrarEvento()}>
-                    + Cadastrar Evento
-                </Button>
-            </Box>
+          Eventos Cadastrados
+        </Typography>
 
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nome</TableCell>
-                            <TableCell>Local</TableCell>
-                            <TableCell>Data</TableCell>
-                            <TableCell align="center">Ações</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {eventos.map((evento) => (
-                            <TableRow key={evento.id}>
-                                <TableCell>{evento.nome}</TableCell>
-                                <TableCell>{evento.local}</TableCell>
-                                <TableCell>{formatarData(evento.data)}</TableCell>
-                                <TableCell align="center">
-                                    <IconButton onClick={() => handleDetalhes(evento?.id)} color="primary">
-                                        <FaSearchPlus />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Box>
-    );
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleCadastrarEvento}
+          fullWidth={isMobile}
+        >
+          + Cadastrar Evento
+        </Button>
+      </Box>
+
+      <TableContainer
+        component={Paper}
+        sx={{
+          width: '100%',
+          overflowX: 'auto',
+        }}
+      >
+        <Table size={isMobile ? 'small' : 'medium'}>
+          <TableHead>
+            <TableRow>
+              <TableCell><strong>Nome</strong></TableCell>
+              <TableCell><strong>Local</strong></TableCell>
+              <TableCell><strong>Data</strong></TableCell>
+              <TableCell align="center"><strong>Ações</strong></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {eventos.map((evento) => (
+              <TableRow key={evento.id}>
+                <TableCell>{evento.nome}</TableCell>
+                <TableCell>{evento.local}</TableCell>
+                <TableCell>{formatarData(evento.data)}</TableCell>
+                <TableCell align="center">
+                  <IconButton
+                    onClick={() => handleDetalhes(evento?.id)}
+                    color="primary"
+                  >
+                    <FaSearchPlus />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
+  );
 }

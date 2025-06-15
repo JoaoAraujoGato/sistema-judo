@@ -54,7 +54,7 @@ export default function HomeRegras() {
             fontWeight: "bold",
           }}
         >
-          Regras e Princípios
+          REGRAS E PRINCÍPIOS
         </Typography>
         <Box
           sx={{

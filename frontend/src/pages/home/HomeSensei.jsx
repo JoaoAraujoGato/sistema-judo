@@ -13,7 +13,7 @@ export default function HomeSensei() {
           fontWeight: "bold",
         }}
       >
-        Senseis
+        SENSEI
       </Typography>
 
       <Box

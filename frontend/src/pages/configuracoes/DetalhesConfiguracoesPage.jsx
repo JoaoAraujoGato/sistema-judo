@@ -103,6 +103,7 @@ export default function DetahesConfiguracaoPage() {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
+      px={{ xs: 2, sm: 4 }}
       sx={{
         backgroundImage: `url("/images/FundoDeTelaJudoCinza.png")`,
         backgroundSize: "cover",
@@ -111,16 +112,23 @@ export default function DetahesConfiguracaoPage() {
       }}
     >
       <Box
-          component="form"
-          onSubmit={handleSubmit}
-          maxWidth={600}
-          mx="auto"
-          p={4}
-          bgcolor="background.paper"
-          boxShadow={3}
-          borderRadius={2}
+        component="form"
+        onSubmit={handleSubmit}
+        maxWidth={600}
+        width="100%"
+        mx="auto"
+        p={{ xs: 2, sm: 4 }}
+        bgcolor="background.paper"
+        boxShadow={3}
+        borderRadius={2}
       >
-        <Typography variant="h4" fontWeight="bold" mb={3}>
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          mb={3}
+          textAlign={{ xs: 'center', sm: 'left' }}
+          fontSize={{ xs: '1.6rem', sm: '2.125rem' }}
+        >
           Configurações do Perfil
         </Typography>
 
@@ -183,11 +191,12 @@ export default function DetahesConfiguracaoPage() {
             </FormControl>
           )}
 
-          <Box>
+          <Box textAlign={{ xs: 'center', sm: 'left' }}>
             <Typography
               variant="subtitle1"
               display="flex"
               alignItems="center"
+              justifyContent={{ xs: 'center', sm: 'flex-start' }}
               gap={1}
               mb={1}
             >
@@ -204,12 +213,19 @@ export default function DetahesConfiguracaoPage() {
               <Avatar
                 src={perfil?.foto_url}
                 alt="Prévia"
-                sx={{ width: 96, height: 96 }}
+                sx={{ width: 96, height: 96, mx: { xs: 'auto', sm: 0 } }}
               />
             )}
           </Box>
 
-          <Button variant="contained" color="primary" size="large" type="submit" disabled={loading}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            type="submit"
+            fullWidth
+            disabled={loading}
+          >
             {loading ? "Salvando..." : "Salvar Alterações"}
           </Button>
         </Stack>
