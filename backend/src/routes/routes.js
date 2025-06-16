@@ -14,7 +14,7 @@ const presenca_routes = require('./presenca.routes');
 routes.use(aluno_routes);
 routes.use(evento_routes);
 routes.use(midia_routes);
-routes.use(presenca_routes_routes);
+routes.use(presenca_routes);
 routes.use(sensei_routes);
 routes.use(session_routes);
 routes.use(treino_routes);
